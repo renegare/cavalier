@@ -14,6 +14,7 @@ class HomePage extends Page {
   set_search_box (value) {
     return this.search_box.then(e => {
       return this.adapter.driver.elementIdValue(e.value.ELEMENT, 'mudi was here')
+        .debug()
     })
   }
 }
