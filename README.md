@@ -4,7 +4,13 @@ Exposes your your favorite selenium webdriver through a "page object"*-esque* in
 
 ## Install
 
+```
+npm i -S cavalier
+```
+
 ## Usage
+
+Please see ```examples/cucumber```
 
 ---
 # API Reference (TBC)
