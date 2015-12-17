@@ -14,7 +14,8 @@
   "scripts": {
     "test": "nyc ava test/**/*.spec.js",
     "lint": "standard",
-    "doc": "jsdoc2md --template readme_tmpl.hbs lib/*.js > README.md",
+    "docs": "jsdoc2md --template readme_tmpl.hbs lib/*.js > README.md",
+    "preversion": "npm test && npm run lint && npm run docs && git commit -am 'update docs'",
     "prepublish": "git push && git push --tags"
   },
   "main": "index.js",
