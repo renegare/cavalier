@@ -1,0 +1,41 @@
+{
+  "name": "cavalier",
+  "author": "mudi <mudi@renegare.com>",
+  "license": "MIT",
+  "repository": "https://github.com/renegare/cavalier",
+  "version": "0.0.0",
+  "description": "Exposes your your favorite selenium webdriver through a \"page object\"-esque interface.",
+  "keywords": [
+    "page objects",
+    "selenium",
+    "webdriver",
+    "dsl"
+  ],
+  "scripts": {
+    "test": "nyc ava test/**/*.spec.js",
+    "lint": "standard",
+    "doc": "jsdoc2md --template readme_tmpl.hbs lib/*.js > README.md"
+  },
+  "main": "index.js",
+  "engines" : { "node" : ">=4.0.0" },
+  "dependencies": {
+    "bluebird": "^3.1.1"
+  },
+  "devDependencies": {
+    "ava": "^0.7.0",
+    "jsdoc-to-markdown": "^1.3.1",
+    "nyc": "^4.0.1",
+    "proxyquire": "^1.7.3",
+    "sequire": "0.0.2",
+    "sinon": "^1.17.2",
+    "standard": "^5.4.1"
+  },
+  "peerDependencies": {
+    "webdriverio": "^3.3.0"
+  },
+  "standard": {
+    "ignore": [
+      "examples"
+    ]
+  }
+}
