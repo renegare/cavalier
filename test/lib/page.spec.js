@@ -3,8 +3,8 @@
 var test = require('ava')
 var sinon = require('sinon')
 var Promise = require('bluebird')
-var sequire = require('sequire')
-var Page = sequire('lib/page')
+var src = require('sequire')
+var Page = src('index').Page
 
 test('Load a single element from adapter', t => {
   var element = {some: 'object'}

@@ -1,8 +1,8 @@
 var test = require('ava')
-var sequire = require('sequire')
-var Browser = sequire('lib/browser')
+var src = require('sequire')
 var sinon = require('sinon')
 var Promise = require('bluebird')
+var Browser = src('index').Browser
 
 test.beforeEach('setup browser', t => {
   var driverStub = Symbol()

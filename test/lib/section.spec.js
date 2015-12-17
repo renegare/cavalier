@@ -1,7 +1,7 @@
 var test = require('ava')
 var src = require('sequire')
-var Section = src('lib/section')
 var sinon = require('sinon')
+var Section = src('index').Section
 
 test('get name', t => {
   var section = new Section('navigation')
