@@ -1,5 +1,5 @@
-var Browser = require('../../../../lib/browser')
-var WdioAdapter = require('../../../../lib/adapter/webdriverio')
+var Browser = require('cavalier').Browser
+var WdioAdapter = require('cavalier/lib/adapter/webdriverio')
 var HomePage = require('../../page/home')
 
 function World () {
