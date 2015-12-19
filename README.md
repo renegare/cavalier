@@ -28,14 +28,18 @@ visit a given url
 
 ---
 
-# TODOS
+# TODOS (till v0.0.1)
 
-[] adapter => add set_element_value
-[] adapter => add set_click_elemtn
-[] component => add textfield - to auto define additional helper methods e.g set_email(value)
-[] component => add button - to auto define additional helper methods e.g click_submit()
-[] where possible use "waitUntil" #on-going
-[] complete documentation #on-going
+- [x] proof of concept
+- [ ] adapter: add set_element method
+- [ ] adapter: add get_element_value method
+- [ ] adapter: add click_element method
+- [ ] component => add textfield - to auto define helper methods
+- [ ] component => add button - to auto define helper methods
+- [ ] used for a production ready system #proofOfUsefulness
+- [ ] where possible use "waitUntil" #on-goingly
+- [ ] complete documentation #on-goingly
+
 ---
 
 # LICENSE
@@ -63,4 +67,4 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ---
-Generated: Sat 19 Dec 2015 00:49:45 GMT
+Generated: Sat 19 Dec 2015 00:57:44 GMT
