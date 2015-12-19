@@ -15,20 +15,6 @@ Please see ```examples/cucumber```
 ---
 # API Reference (TBC)
 
-## Classes
-
-<dl>
-<dt><a href="#Browser">Browser</a></dt>
-<dd><p>Browser is the initial interface. Browser has &quot;Page&quot;s ...</p>
-</dd>
-<dt><a href="#Component">Component</a></dt>
-<dd></dd>
-<dt><a href="#Page">Page</a></dt>
-<dd></dd>
-<dt><a href="#Section">Section</a></dt>
-<dd></dd>
-</dl>
-
 <a name="Browser"></a>
 ## Browser
 Browser is the initial interface. Browser has "Page"s ...
@@ -39,16 +25,17 @@ Browser is the initial interface. Browser has "Page"s ...
 visit a given url
 
 **Kind**: instance method of <code>[Browser](#Browser)</code>  
-<a name="Component"></a>
-## Component
-**Kind**: global class  
-<a name="Page"></a>
-## Page
-**Kind**: global class  
-<a name="Section"></a>
-## Section
-**Kind**: global class  
 
+---
+
+# TODOS
+
+[] adapter => add set_element_value
+[] adapter => add set_click_elemtn
+[] component => add textfield - to auto define additional helper methods e.g set_email(value)
+[] component => add button - to auto define additional helper methods e.g click_submit()
+[] where possible use "waitUntil" #on-going
+[] complete documentation #on-going
 ---
 
 # LICENSE
@@ -76,4 +63,4 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ---
-Generated: Thu 17 Dec 2015 06:59:21 GMT
+Generated: Sat 19 Dec 2015 00:49:45 GMT
