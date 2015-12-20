@@ -53,7 +53,7 @@ visit a given url
 # TODOS (till v0.0.1)
 
 - [x] proof of concept
-- [ ] adapter: add set_element method
+- [ ] adapter: add set_element_value method
 - [ ] adapter: add get_element_value method
 - [ ] adapter: add click_element method
 - [ ] component => add textfield - to auto define helper methods

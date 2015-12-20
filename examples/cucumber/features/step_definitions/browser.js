@@ -8,8 +8,7 @@ module.exports = function () {
   })
 
   this.Then(/^I should see the home page$/, Promise.coroutine(function* () {
-    var p = yield this.browser.page
-    expect(p.constructor).to.eql(HomePage)
-    yield p.set_search_box('mudi was here')
+    var p = new HomePage(this.adapter)
+    expect(yield p.visible).to.be.true
   }))
 }
