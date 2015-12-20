@@ -1,14 +1,18 @@
 'use strict'
 
-var Page = require('../../../lib/page')
+var Interface = require('../../../lib/interface')
 
-class HomePage extends Page {
+class HomePage extends Interface {
 
   constructor (adapter) {
     super(adapter)
 
     this.element('search_box', 'input[name=q]')
     this.element('search_button', 'input[name=btnK]')
+  }
+
+  get visible () {
+    return Promise.resolve(true)
   }
 
   set_search_box (value) {
