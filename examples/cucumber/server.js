@@ -10,6 +10,7 @@ app.get('/', (req, res) => {
     '<html><body>' +
       '<div id="welcome">Hello world</div>' +
       '<input name="q" placeholder="Enter some text here">' +
+      '<input type="submit" name="btnK" value="Submit">' +
     '</body></html>'
   )
 })

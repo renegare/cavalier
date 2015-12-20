@@ -5,6 +5,7 @@ var sinon = require('sinon')
 var Promise = require('bluebird')
 var src = require('sequire')
 var Interface = src('index').Interface
+var proxy = require('proxyquire').noCallThru()
 
 test('get adapter', t => {
   var adapter = {}
@@ -25,37 +26,45 @@ test('get driver', t => {
 
 test('define and access single element', t => {
   var element = {some: 'object'}
-  var findElementStub = sinon.stub().returns(Promise.resolve(element))
-  var adapter = {
-    find: findElementStub
+  var findStub = sinon.stub().returns(Promise.resolve(element))
+  class MockAdapter {
+    find () {
+      return findStub.apply(null, arguments)
+    }
   }
+  var adapter = new MockAdapter()
 
   var p = new Interface(adapter)
-  p.element('save', 'button')
-  return p.save.then(e => {
-    t.same(e, element)
-    t.ok(adapter.find.calledOnce)
-    t.same(adapter.find.lastCall.args, ['button'])
-  })
+  p.element('save', 'red', 'button')
+  return p.save.find('additional', 'args')
+    .then(e => {
+      t.same(e, element)
+      t.ok(findStub.calledOnce)
+      t.same(findStub.lastCall.args, ['red', 'button', 'additional', 'args'])
+    })
 })
 
 test('define and access collection of elements', t => {
-  var elements = [{some: 'object3'}, {some: 'object2'}]
-  var findAllElementsStub = sinon.stub().returns(Promise.resolve(elements))
-  var adapter = {
-    findAll: findAllElementsStub
+  var constructorStub = sinon.stub()
+  var adapter = {some: 'adapter'}
+
+  class Elements {
+    constructor (adapter, selector) {
+      constructorStub(adapter, selector)
+    }
   }
 
-  var p = new Interface(adapter)
-  p.elements('Interfaces', 'li')
-  return p.Interfaces.then(e => {
-    t.same(e, elements)
-    t.ok(adapter.findAll.calledOnce)
-    t.same(adapter.findAll.lastCall.args, ['li'])
+  var Interface = proxy(src('lib/interface', true), {
+    './elements': Elements
   })
+
+  var p = new Interface(adapter)
+  p.elements('options', 'nav li a')
+  t.same(p.options.constructor, Elements)
+  t.same(constructorStub.lastCall.args, [adapter, 'nav li a'])
 })
 
-test('define and access a sub interface', t => {
+test.skip('define and access a sub interface', t => {
   var contextedAdapter = {}
   var adapter = {
     contextulise: sinon.stub().returns(contextedAdapter)

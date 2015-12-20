@@ -1,6 +1,7 @@
 'use strict'
 
 var Interface = require('../../../lib/interface')
+var Promise = require('bluebird')
 
 class HomePage extends Interface {
 
@@ -12,7 +13,10 @@ class HomePage extends Interface {
   }
 
   get visible () {
-    return Promise.resolve(true)
+    return Promise.join(this.search_box.visible(), this.search_button.visible())
+      .then(function(visibles) {
+        return !visibles.some(v => v !== true)
+      })
   }
 
   set_search_box (value) {
