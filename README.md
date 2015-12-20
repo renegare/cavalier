@@ -15,6 +15,22 @@ Please see ```examples/cucumber```
 ---
 # API Reference (TBC)
 
+## Classes
+
+<dl>
+<dt><a href="#Browser">Browser</a></dt>
+<dd><p>Browser is the initial interface. Browser has &quot;Page&quot;s ...</p>
+</dd>
+<dt><a href="#Page">Page</a></dt>
+<dd></dd>
+<dt><a href="#Section">Section</a></dt>
+<dd></dd>
+</dl>
+
+<a name="Component"></a>
+## Component
+**Kind**: global internal class  
+**Internally**: used by everything that exposes your page-object dsl  
 <a name="Browser"></a>
 ## Browser
 Browser is the initial interface. Browser has "Page"s ...
@@ -25,6 +41,12 @@ Browser is the initial interface. Browser has "Page"s ...
 visit a given url
 
 **Kind**: instance method of <code>[Browser](#Browser)</code>  
+<a name="Page"></a>
+## Page
+**Kind**: global class  
+<a name="Section"></a>
+## Section
+**Kind**: global class  
 
 ---
 
@@ -67,4 +89,4 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ---
-Generated: Sat 19 Dec 2015 00:58:33 GMT
+Generated: Sat 19 Dec 2015 12:42:52 GMT

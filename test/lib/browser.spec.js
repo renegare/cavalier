@@ -96,5 +96,3 @@ test('resolve page based on current browser location (via RegExp)', t => {
       })
     })
 })
-
-test.skip('exit', t => {})

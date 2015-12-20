@@ -1,13 +1,14 @@
 var test = require('ava')
 var sinon = require('sinon')
 var src = require('sequire')
-var proxy = require('proxyquire')
+var proxy = require('proxyquire').noCallThru()
 
 test.beforeEach('setup stubs', t => {
   var driver = {}
   driver.init = sinon.stub().returns(driver)
-  var wdio = { remote: sinon.stub().returns(driver) }
+  driver.waitUntil = sinon.stub().callsArg(0)
 
+  var wdio = { remote: sinon.stub().returns(driver) }
   var Adapter = proxy(src('lib/adapter/webdriverio', true), {
     webdriverio: wdio
   })
@@ -62,7 +63,8 @@ test('find single element matching selector ', t => {
   var driver = t.context.driver
   var element = {some: 'element'}
 
-  driver.element = sinon.stub().returns(Promise.resolve(element))
+  driver.element = sinon.stub().returns(Promise.resolve())
+  driver.waitUntil.returns(Promise.resolve(element))
 
   return adapter.find('.element')
     .then(e => {
@@ -76,7 +78,8 @@ test('findAll element matching selector', t => {
   var driver = t.context.driver
   var elements = [{some: 'element'}, {some: 'element'}, {some: 'element'}]
 
-  driver.elements = sinon.stub().returns(Promise.resolve(elements))
+  driver.elements = sinon.stub().returns(Promise.resolve())
+  driver.waitUntil.returns(Promise.resolve(elements))
 
   return adapter.findAll('.elements')
     .then(e => {
@@ -90,7 +93,8 @@ test('clone and contextulise adapter (findAll)', t => {
   var driver = t.context.driver
   var elements = [{some: 'element'}, {some: 'element'}, {some: 'element'}]
 
-  driver.elements = sinon.stub().returns(Promise.resolve(elements))
+  driver.elements = sinon.stub().returns(Promise.resolve())
+  driver.waitUntil.returns(Promise.resolve(elements))
 
   return adapter.findAll('.elements')
     .then(e => {
@@ -104,7 +108,8 @@ test('clone and contextulise adapter (find)', t => {
   var driver = t.context.driver
   var element = {some: 'element'}
 
-  driver.element = sinon.stub().returns(Promise.resolve(element))
+  driver.element = sinon.stub().returns(Promise.resolve())
+  driver.waitUntil.returns(Promise.resolve(element))
 
   return adapter.find('.element')
     .then(e => {
