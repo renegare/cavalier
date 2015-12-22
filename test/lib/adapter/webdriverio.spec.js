@@ -30,15 +30,47 @@ test('get exposable methods', t => {
 test('find single element matching selector ', t => {
   var adapter = t.context.adapter
   var driver = t.context.driver
-  var element = {some: 'element'}
+  var elements = [{element: 0}, {element: 1}, {element: 2}]
 
-  driver.element = sinon.stub().returns(Promise.resolve())
-  driver.waitUntil.returns(Promise.resolve(element))
+  driver.elements = sinon.stub().returns(Promise.resolve())
+  driver.waitUntil.returns(Promise.resolve(elements))
 
   return adapter.find(new Element('.element'))
     .then(e => {
-      t.same(driver.element.lastCall.args, ['.element'])
-      t.same(e, element)
+      t.same(driver.elements.lastCall.args, ['.element'])
+      t.same(e, elements[0])
+    })
+})
+
+test('find nth element of a collection that matches the selector', t => {
+  var adapter = t.context.adapter
+  var driver = t.context.driver
+  var elements = [{element: 0}, {element: 1}, {element: 2}]
+
+  driver.elements = sinon.stub().returns(Promise.resolve())
+  driver.waitUntil.returns(Promise.resolve(elements))
+
+  return adapter.find(new Element('.elements', undefined, 2))
+    .then(e => {
+      t.same(driver.elements.lastCall.args, ['.elements'])
+      t.same(e, elements[2])
+    })
+})
+
+test('find "promised nth" element of a collection that matches the selector', t => {
+  var adapter = t.context.adapter
+  var driver = t.context.driver
+  var elements = [{element: 0}, {element: 1}, {element: 2}]
+
+  driver.elements = sinon.stub().returns(Promise.resolve())
+  driver.waitUntil.returns(Promise.resolve(elements))
+
+  return adapter.find(new Element('.elements', undefined, () => {
+    return Promise.resolve(2)
+  }))
+    .then(e => {
+      t.same(driver.elements.lastCall.args, ['.elements'])
+      t.same(e, elements[2])
     })
 })
 
@@ -60,15 +92,15 @@ test('findAll element matching selector', t => {
 test('clone and contextulise adapter (find)', t => {
   var adapter = t.context.adapter.contextulise(new Element('.root'))
   var driver = t.context.driver
-  var element = {some: 'element'}
+  var elements = [{element: 0}, {element: 1}, {element: 2}]
 
-  driver.element = sinon.stub().returns(Promise.resolve())
-  driver.waitUntil.returns(Promise.resolve(element))
+  driver.elements = sinon.stub().returns(Promise.resolve())
+  driver.waitUntil.returns(Promise.resolve(elements))
 
   return adapter.find(new Element('.element'))
     .then(e => {
-      t.same(driver.element.lastCall.args, ['.root .element'])
-      t.same(e, element)
+      t.same(driver.elements.lastCall.args, ['.root .element'])
+      t.same(e, elements[0])
     })
 })
 

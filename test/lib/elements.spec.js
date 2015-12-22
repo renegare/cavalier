@@ -73,17 +73,18 @@ function assertNthElement (position) {
     })
 
     var es = new Elements('nav li', adapter)
-    var e = await handle(es)
+    var e = handle(es)
     t.same(e.constructor, Element)
     t.same(await e.find(), {element: index})
-    t.same(constructorStub.lastCall.args, ['nav li', adapter, index])
-
-    if(position === 'last') {
-      t.ok(findAllStub.calledOnce)
-      t.same(findAllStub.lastCall.args.length, 1)
-      t.same(findAllStub.lastCall.args[0].constructor, Element)
+    var args = constructorStub.lastCall.args
+    t.ok(!findAllStub.calledOnce)
+    t.same(args[0], 'nav li')
+    t.same(args[1], adapter)
+    if (position === 'last') {
+      t.same(args[2].constructor, Function)
+      t.same(await args[2](), 2)
     } else {
-      t.ok(!findAllStub.calledOnce)
+      t.same(args[2], index)
     }
   }
 }
