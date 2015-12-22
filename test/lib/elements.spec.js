@@ -4,9 +4,10 @@ var proxy = require('proxyquire').noCallThru()
 var src = require('sequire')
 var Elements = src('index').Elements
 var Element = src('index').Element
+var co = require('bluebird').coroutine
 
 class MockAdapter {
-  constructor() {
+  constructor () {
     this.findAllStub = sinon.stub()
   }
 
@@ -19,23 +20,23 @@ class MockAdapter {
   }
 }
 
-test('expose length (deps on findAll adapter method)', async t => {
+test('expose length (deps on findAll adapter method)', co(function * (t) {
   var elements = [{some: 'object0'}, {some: 'object1'}, {some: 'object2'}]
   var adapter = new MockAdapter()
   var findAllStub = adapter.findAllStub.returns(Promise.resolve(elements))
 
   var es = new Elements('nav li', adapter)
-  t.same(await es.length, elements.length)
+  t.same(yield es.length, elements.length)
   t.ok(findAllStub.calledOnce)
   t.same(findAllStub.lastCall.args.length, 1)
   var e = findAllStub.lastCall.args[0]
   t.same(e.constructor, Element)
   t.same(e.selector, 'nav li')
   t.same(e.index, undefined)
-})
+}))
 
 function assertNthElement (position) {
-  return async t => {
+  return co(function * (t) {
     var elements = [{element: 0}, {element: 1}, {element: 2}]
     var adapter = new MockAdapter()
     var findAllStub = adapter.findAllStub.returns(Promise.resolve(elements))
@@ -43,23 +44,23 @@ function assertNthElement (position) {
     var handle
     var index
 
-    switch(position) {
+    switch (position) {
       case 'first':
         index = 0
-        handle = (e => e.first)
+        handle = e => e.first
         break
       case 'last':
         index = 2
-        handle = (e => e.last)
+        handle = e => e.last
         break
       default:
         index = position
-        handle = (e => e.at(position))
+        handle = e => e.at(position)
         break
     }
 
     class Element {
-      constructor() {
+      constructor () {
         constructorStub.apply(null, arguments)
       }
 
@@ -75,18 +76,18 @@ function assertNthElement (position) {
     var es = new Elements('nav li', adapter)
     var e = handle(es)
     t.same(e.constructor, Element)
-    t.same(await e.find(), {element: index})
+    t.same(yield e.find(), {element: index})
     var args = constructorStub.lastCall.args
     t.ok(!findAllStub.calledOnce)
     t.same(args[0], 'nav li')
     t.same(args[1], adapter)
     if (position === 'last') {
       t.same(args[2].constructor, Function)
-      t.same(await args[2](), 2)
+      t.same(yield args[2](), 2)
     } else {
       t.same(args[2], index)
     }
-  }
+  })
 }
 
 test('expose first element', assertNthElement('first'))
