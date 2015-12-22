@@ -3,11 +3,15 @@ var sinon = require('sinon')
 var proxy = require('proxyquire').noCallThru()
 var src = require('sequire')
 var Elements = src('index').Elements
+var Element = src('index').Element
 
 class MockAdapter {
   constructor() {
-    this.findStub = sinon.stub()
     this.findAllStub = sinon.stub()
+  }
+
+  get methods () {
+    return []
   }
 
   findAll () {
@@ -15,7 +19,7 @@ class MockAdapter {
   }
 }
 
-test('expose length (deps on findAll adapter method)', async t => {
+test.only('expose length (deps on findAll adapter method)', async t => {
   var elements = [{some: 'object0'}, {some: 'object1'}, {some: 'object2'}]
   var adapter = new MockAdapter()
   var findAllStub = adapter.findAllStub.returns(Promise.resolve(elements))
@@ -23,7 +27,11 @@ test('expose length (deps on findAll adapter method)', async t => {
   var e = new Elements(adapter, 'nav li')
   t.same(await e.length, elements.length)
   t.ok(findAllStub.calledOnce)
-  t.same(findAllStub.lastCall.args, ['nav li'])
+  t.same(findAllStub.lastCall.args.length, 1)
+  var arg = findAllStub.lastCall.args[0]
+  t.same(arg.constructor, Element)
+  t.same(arg.selector, 'nav li')
+  t.same(arg.index, undefined)
 })
 
 function assertNthElement (position) {
@@ -79,6 +87,6 @@ function assertNthElement (position) {
   }
 }
 
-test.only('expose first element', assertNthElement('first'))
-test.only('expose nth element', assertNthElement(1))
-test.only('expose last element', assertNthElement('last'))
+test('expose first element', assertNthElement('first'))
+test('expose nth element', assertNthElement(1))
+test('expose last element', assertNthElement('last'))
