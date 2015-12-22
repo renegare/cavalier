@@ -5,6 +5,7 @@ var sinon = require('sinon')
 var Promise = require('bluebird')
 var src = require('sequire')
 var Interface = src('index').Interface
+var Element = src('index').Element
 var proxy = require('proxyquire').noCallThru()
 
 test('get adapter', t => {
@@ -77,14 +78,22 @@ test('define and access a sub interface', t => {
 
   p.section(Interface, 'main_menu', 'nav')
   t.ok(p.main_menu.constructor === Interface)
-  t.ok(adapter.contextulise.calledOnce)
-  t.same(adapter.contextulise.lastCall.args, ['nav'])
   t.same(p.main_menu.adapter, contextedAdapter)
+
+  t.ok(adapter.contextulise.calledOnce)
+  t.same(adapter.contextulise.lastCall.args.length, 1)
+  var e = adapter.contextulise.lastCall.args[0]
+  t.same(e.constructor, Element)
+  t.same(e.selector, 'nav')
+  t.same(e.index, undefined)
 
   p.main_menu.section(Interface, 'option', 'li')
   t.ok(p.main_menu.option.constructor === Interface)
-  t.ok(contextedAdapter.contextulise.calledOnce)
-  t.same(contextedAdapter.contextulise.lastCall.args, ['li'])
   t.same(p.main_menu.option.adapter, secondContextedAdapter)
-
+  t.ok(contextedAdapter.contextulise.calledOnce)
+  t.same(contextedAdapter.contextulise.lastCall.args.length, 1)
+  var e = contextedAdapter.contextulise.lastCall.args[0]
+  t.same(e.constructor, Element)
+  t.same(e.selector, 'li')
+  t.same(e.index, undefined)
 })

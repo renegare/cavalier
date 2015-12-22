@@ -19,19 +19,19 @@ class MockAdapter {
   }
 }
 
-test.only('expose length (deps on findAll adapter method)', async t => {
+test('expose length (deps on findAll adapter method)', async t => {
   var elements = [{some: 'object0'}, {some: 'object1'}, {some: 'object2'}]
   var adapter = new MockAdapter()
   var findAllStub = adapter.findAllStub.returns(Promise.resolve(elements))
 
-  var e = new Elements(adapter, 'nav li')
-  t.same(await e.length, elements.length)
+  var es = new Elements(adapter, 'nav li')
+  t.same(await es.length, elements.length)
   t.ok(findAllStub.calledOnce)
   t.same(findAllStub.lastCall.args.length, 1)
-  var arg = findAllStub.lastCall.args[0]
-  t.same(arg.constructor, Element)
-  t.same(arg.selector, 'nav li')
-  t.same(arg.index, undefined)
+  var e = findAllStub.lastCall.args[0]
+  t.same(e.constructor, Element)
+  t.same(e.selector, 'nav li')
+  t.same(e.index, undefined)
 })
 
 function assertNthElement (position) {
@@ -80,7 +80,8 @@ function assertNthElement (position) {
 
     if(position === 'last') {
       t.ok(findAllStub.calledOnce)
-      t.same(findAllStub.lastCall.args, ['nav li'])
+      t.same(findAllStub.lastCall.args.length, 1)
+      t.same(findAllStub.lastCall.args[0].constructor, Element)
     } else {
       t.ok(!findAllStub.calledOnce)
     }
