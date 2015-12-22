@@ -29,7 +29,7 @@ test('Element exposes proxy adapter methods', async t => {
   var findStub = adapter.findStub.returns(Promise.resolve(element))
   var methodsStub = adapter.methodsStub.returns(['find'])
 
-  var e = new Element(adapter, 'button.red')
+  var e = new Element('button.red', adapter)
   t.same(e.selector, 'button.red')
   t.same(e.index, undefined)
   t.same(e.findAll, undefined)
@@ -44,7 +44,7 @@ test('Element correctly passes on additional arguments', async t => {
   var findAllStub = adapter.findAllStub.returns(Promise.resolve(elements))
   var methodsStub = adapter.methodsStub.returns(['findAll'])
 
-  var e = new Element(adapter, 'button.red', 1)
+  var e = new Element('button.red', adapter, 1)
   t.same(e.index, 1)
   t.same(e.find, undefined)
   t.same(await e.findAll('additional', 'args'), elements)

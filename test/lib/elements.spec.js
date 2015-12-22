@@ -24,7 +24,7 @@ test('expose length (deps on findAll adapter method)', async t => {
   var adapter = new MockAdapter()
   var findAllStub = adapter.findAllStub.returns(Promise.resolve(elements))
 
-  var es = new Elements(adapter, 'nav li')
+  var es = new Elements('nav li', adapter)
   t.same(await es.length, elements.length)
   t.ok(findAllStub.calledOnce)
   t.same(findAllStub.lastCall.args.length, 1)
@@ -72,11 +72,11 @@ function assertNthElement (position) {
       './element': Element
     })
 
-    var es = new Elements(adapter, 'nav li')
+    var es = new Elements('nav li', adapter)
     var e = await handle(es)
     t.same(e.constructor, Element)
     t.same(await e.find(), {element: index})
-    t.same(constructorStub.lastCall.args, [adapter, 'nav li', index])
+    t.same(constructorStub.lastCall.args, ['nav li', adapter, index])
 
     if(position === 'last') {
       t.ok(findAllStub.calledOnce)

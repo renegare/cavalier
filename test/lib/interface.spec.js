@@ -30,8 +30,8 @@ test('define and access single element', t => {
   var adapter = {some: 'adapter'}
 
   class Element {
-    constructor (adapter, selector) {
-      constructorStub(adapter, selector)
+    constructor (selector, adapter) {
+      constructorStub(selector, adapter)
     }
   }
 
@@ -42,7 +42,7 @@ test('define and access single element', t => {
   var p = new Interface(adapter)
   p.element('save', 'button')
   t.same(p.save.constructor, Element)
-  t.same(constructorStub.lastCall.args, [adapter, 'button'])
+  t.same(constructorStub.lastCall.args, ['button', adapter])
 })
 
 test('define and access collection of elements', t => {
@@ -50,8 +50,8 @@ test('define and access collection of elements', t => {
   var adapter = {some: 'adapter'}
 
   class Elements {
-    constructor (adapter, selector) {
-      constructorStub(adapter, selector)
+    constructor (selector, adapter) {
+      constructorStub(selector, adapter)
     }
   }
 
@@ -62,7 +62,7 @@ test('define and access collection of elements', t => {
   var p = new Interface(adapter)
   p.elements('options', 'nav li a')
   t.same(p.options.constructor, Elements)
-  t.same(constructorStub.lastCall.args, [adapter, 'nav li a'])
+  t.same(constructorStub.lastCall.args, ['nav li a', adapter])
 })
 
 test('define and access a sub interface', t => {

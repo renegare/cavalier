@@ -35,7 +35,7 @@ test('find single element matching selector ', t => {
   driver.element = sinon.stub().returns(Promise.resolve())
   driver.waitUntil.returns(Promise.resolve(element))
 
-  return adapter.find(new Element(undefined, '.element'))
+  return adapter.find(new Element('.element'))
     .then(e => {
       t.same(driver.element.lastCall.args, ['.element'])
       t.same(e, element)
@@ -50,7 +50,7 @@ test('findAll element matching selector', t => {
   driver.elements = sinon.stub().returns(Promise.resolve())
   driver.waitUntil.returns(Promise.resolve(elements))
 
-  return adapter.findAll(new Element(undefined, '.elements'))
+  return adapter.findAll(new Element('.elements'))
     .then(e => {
       t.same(driver.elements.lastCall.args, ['.elements'])
       t.same(e, elements)
@@ -58,14 +58,14 @@ test('findAll element matching selector', t => {
 })
 
 test('clone and contextulise adapter (find)', t => {
-  var adapter = t.context.adapter.contextulise(new Element(null, '.root'))
+  var adapter = t.context.adapter.contextulise(new Element('.root'))
   var driver = t.context.driver
   var element = {some: 'element'}
 
   driver.element = sinon.stub().returns(Promise.resolve())
   driver.waitUntil.returns(Promise.resolve(element))
 
-  return adapter.find(new Element(null, '.element'))
+  return adapter.find(new Element('.element'))
     .then(e => {
       t.same(driver.element.lastCall.args, ['.root .element'])
       t.same(e, element)
@@ -73,14 +73,14 @@ test('clone and contextulise adapter (find)', t => {
 })
 
 test('clone and contextulise adapter (findAll)', t => {
-  var adapter = t.context.adapter.contextulise(new Element(null, '.root'))
+  var adapter = t.context.adapter.contextulise(new Element('.root'))
   var driver = t.context.driver
   var elements = [{some: 'element'}, {some: 'element'}, {some: 'element'}]
 
   driver.elements = sinon.stub().returns(Promise.resolve())
   driver.waitUntil.returns(Promise.resolve(elements))
 
-  return adapter.findAll(new Element(null, '.elements'))
+  return adapter.findAll(new Element('.elements'))
     .then(e => {
       t.same(driver.elements.lastCall.args, ['.root .elements'])
       t.same(e, elements)
