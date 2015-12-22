@@ -18,12 +18,6 @@ class HomePage extends Interface {
         return !visibles.some(v => v !== true)
       })
   }
-
-  set_search_box (value) {
-    return this.search_box.then(e => {
-      return this.adapter.driver.elementIdValue(e.value.ELEMENT, 'mudi was here')
-    })
-  }
 }
 
 module.exports = HomePage

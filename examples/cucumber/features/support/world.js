@@ -1,9 +1,8 @@
-// var WdioAdapter = require('cavalier/lib/adapter/webdriverio')
-var WdioAdapter = require('../../../../lib/adapter/webdriverio')
+var Adapter = require('../../adapter')
 var HomePage = require('../../page/home')
 
 function World () {
-  this.adapter = new WdioAdapter({ desiredCapabilities: { browserName: 'firefox' } })
+  this.adapter = new Adapter({ desiredCapabilities: { browserName: 'firefox' } })
 }
 
 module.exports = function () {
