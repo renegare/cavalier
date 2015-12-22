@@ -14,7 +14,7 @@ class HomePage extends Interface {
 
   get visible () {
     return Promise.join(this.search_box.visible(), this.search_button.visible())
-      .then(function(visibles) {
+      .then(function (visibles) {
         return !visibles.some(v => v !== true)
       })
   }

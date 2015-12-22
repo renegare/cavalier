@@ -7,7 +7,7 @@ module.exports = function () {
     return this.adapter.driver.url(page)
   })
 
-  this.Then(/^I should see the home page$/, co(function* () {
+  this.Then(/^I should see the home page$/, co(function * () {
     var p = new HomePage(this.adapter)
     expect(yield p.visible).to.be.true
   }))
