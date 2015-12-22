@@ -27,8 +27,6 @@ Please see ```examples/cucumber```
 <dt><a href="#Interface">Interface</a></dt>
 <dd><p>represents a whole or sub interface of &quot;elements :?&quot;</p>
 </dd>
-<dt><a href="#WebDriverIOAdapter">WebDriverIOAdapter</a></dt>
-<dd></dd>
 </dl>
 
 <a name="Element"></a>
@@ -123,8 +121,8 @@ represents a whole or sub interface of "elements :?"
 
 | Param | Type |
 | --- | --- |
-| name | <code>sting</code> | 
-| selector | <code>sting</code> | 
+| name | <code>string</code> | 
+| selector | <code>string</code> | 
 
 <a name="Interface+elements"></a>
 ### interface.elements(name, selector) ⇒ <code>[Array.&lt;Element&gt;](#Element)</code>
@@ -132,8 +130,8 @@ represents a whole or sub interface of "elements :?"
 
 | Param | Type |
 | --- | --- |
-| name | <code>sting</code> | 
-| selector | <code>sting</code> | 
+| name | <code>string</code> | 
+| selector | <code>string</code> | 
 
 <a name="Interface+section"></a>
 ### interface.section(SubInterface, name, selector) ⇒ <code>[Interface](#Interface)</code>
@@ -142,58 +140,8 @@ represents a whole or sub interface of "elements :?"
 | Param | Type |
 | --- | --- |
 | SubInterface | <code>[Interface](#Interface)</code> | 
-| name | <code>sting</code> | 
-| selector | <code>sting</code> | 
-
-<a name="WebDriverIOAdapter"></a>
-## WebDriverIOAdapter
-**Kind**: global class  
-
-* [WebDriverIOAdapter](#WebDriverIOAdapter)
-    * [new WebDriverIOAdapter(opts, [context])](#new_WebDriverIOAdapter_new)
-    * [.methods](#WebDriverIOAdapter+methods) ⇒ <code>Array.&lt;string&gt;</code>
-    * [.driver](#WebDriverIOAdapter+driver) ⇒ <code>Object</code>
-    * [.find(e)](#WebDriverIOAdapter+find) ⇒ <code>Promise.&lt;Object&gt;</code>
-    * [.findAll(e)](#WebDriverIOAdapter+findAll) ⇒ <code>Promise.&lt;Object&gt;</code>
-    * [.contextulise(e)](#WebDriverIOAdapter+contextulise) ⇒ <code>Object</code>
-
-<a name="new_WebDriverIOAdapter_new"></a>
-### new WebDriverIOAdapter(opts, [context])
-
-| Param | Type |
-| --- | --- |
-| opts | <code>Object</code> | 
-| [context] | <code>string</code> | 
-
-<a name="WebDriverIOAdapter+methods"></a>
-### webDriverIOAdapter.methods ⇒ <code>Array.&lt;string&gt;</code>
-**Kind**: instance property of <code>[WebDriverIOAdapter](#WebDriverIOAdapter)</code>  
-<a name="WebDriverIOAdapter+driver"></a>
-### webDriverIOAdapter.driver ⇒ <code>Object</code>
-**Kind**: instance property of <code>[WebDriverIOAdapter](#WebDriverIOAdapter)</code>  
-<a name="WebDriverIOAdapter+find"></a>
-### webDriverIOAdapter.find(e) ⇒ <code>Promise.&lt;Object&gt;</code>
-**Kind**: instance method of <code>[WebDriverIOAdapter](#WebDriverIOAdapter)</code>  
-
-| Param | Type |
-| --- | --- |
-| e | <code>[Element](#Element)</code> | 
-
-<a name="WebDriverIOAdapter+findAll"></a>
-### webDriverIOAdapter.findAll(e) ⇒ <code>Promise.&lt;Object&gt;</code>
-**Kind**: instance method of <code>[WebDriverIOAdapter](#WebDriverIOAdapter)</code>  
-
-| Param | Type |
-| --- | --- |
-| e | <code>[Element](#Element)</code> | 
-
-<a name="WebDriverIOAdapter+contextulise"></a>
-### webDriverIOAdapter.contextulise(e) ⇒ <code>Object</code>
-**Kind**: instance method of <code>[WebDriverIOAdapter](#WebDriverIOAdapter)</code>  
-
-| Param | Type |
-| --- | --- |
-| e | <code>[Element](#Element)</code> | 
+| name | <code>string</code> | 
+| selector | <code>string</code> | 
 
 
 ## Custom Adapter interface
@@ -254,4 +202,4 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ---
-Generated: Tue 22 Dec 2015 17:32:13 GMT
+Generated: Tue 22 Dec 2015 17:33:58 GMT
