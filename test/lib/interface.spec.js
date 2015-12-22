@@ -25,23 +25,23 @@ test('get driver', t => {
 })
 
 test('define and access single element', t => {
-  var element = {some: 'object'}
-  var findStub = sinon.stub().returns(Promise.resolve(element))
-  class MockAdapter {
-    find () {
-      return findStub.apply(null, arguments)
+  var constructorStub = sinon.stub()
+  var adapter = {some: 'adapter'}
+
+  class Element {
+    constructor (adapter, selector) {
+      constructorStub(adapter, selector)
     }
   }
-  var adapter = new MockAdapter()
+
+  var Interface = proxy(src('lib/interface', true), {
+    './element': Element
+  })
 
   var p = new Interface(adapter)
-  p.element('save', 'red', 'button')
-  return p.save.find('additional', 'args')
-    .then(e => {
-      t.same(e, element)
-      t.ok(findStub.calledOnce)
-      t.same(findStub.lastCall.args, ['red', 'button', 'additional', 'args'])
-    })
+  p.element('save', 'button')
+  t.same(p.save.constructor, Element)
+  t.same(constructorStub.lastCall.args, [adapter, 'button'])
 })
 
 test('define and access collection of elements', t => {
@@ -64,18 +64,27 @@ test('define and access collection of elements', t => {
   t.same(constructorStub.lastCall.args, [adapter, 'nav li a'])
 })
 
-test.skip('define and access a sub interface', t => {
-  var contextedAdapter = {}
+test('define and access a sub interface', t => {
+  var secondContextedAdapter = {}
+  var contextedAdapter = {
+    contextulise: sinon.stub().returns(secondContextedAdapter)
+  }
   var adapter = {
     contextulise: sinon.stub().returns(contextedAdapter)
   }
-  var p = new Interface(adapter)
-  p.section(Interface, 'main_menu', 'nav')
 
-  return p.main_menu.then(s => {
-    t.ok(s.constructor === Interface)
-    t.ok(adapter.contextulise.calledOnce)
-    t.ok(adapter.contextulise.lastCall.args, ['nav'])
-    t.same(s.adapter, contextedAdapter)
-  })
+  var p = new Interface(adapter)
+
+  p.section(Interface, 'main_menu', 'nav')
+  t.ok(p.main_menu.constructor === Interface)
+  t.ok(adapter.contextulise.calledOnce)
+  t.same(adapter.contextulise.lastCall.args, ['nav'])
+  t.same(p.main_menu.adapter, contextedAdapter)
+
+  p.main_menu.section(Interface, 'option', 'li')
+  t.ok(p.main_menu.option.constructor === Interface)
+  t.ok(contextedAdapter.contextulise.calledOnce)
+  t.same(contextedAdapter.contextulise.lastCall.args, ['li'])
+  t.same(p.main_menu.option.adapter, secondContextedAdapter)
+
 })
