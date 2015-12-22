@@ -18,49 +18,101 @@ Please see ```examples/cucumber```
 ## Classes
 
 <dl>
-<dt><a href="#Browser">Browser</a></dt>
-<dd><p>Browser is the initial interface. Browser has &quot;Page&quot;s ...</p>
+<dt><a href="#Element">Element</a></dt>
+<dd><p>represents a single Element</p>
 </dd>
-<dt><a href="#Page">Page</a></dt>
-<dd></dd>
-<dt><a href="#Section">Section</a></dt>
+<dt><a href="#Elements">Elements</a></dt>
+<dd><p>represents a collection of Elements</p>
+</dd>
+<dt><a href="#Interface">Interface</a></dt>
 <dd></dd>
 </dl>
 
-<a name="Component"></a>
-## Component
-**Kind**: global internal class  
-**Internally**: used by everything that exposes your page-object dsl  
-<a name="Browser"></a>
-## Browser
-Browser is the initial interface. Browser has "Page"s ...
+<a name="Element"></a>
+## Element
+represents a single Element
 
 **Kind**: global class  
-<a name="Browser+visit"></a>
-### browser.visit()
-visit a given url
 
-**Kind**: instance method of <code>[Browser](#Browser)</code>  
-<a name="Page"></a>
-## Page
-**Kind**: global class  
-<a name="Section"></a>
-## Section
+* [Element](#Element)
+    * [new Element(selector, [adapter], [index])](#new_Element_new)
+    * [.selector](#Element+selector) ⇒ <code>string</code>
+    * [.index](#Element+index) ⇒ <code>number</code>
+
+<a name="new_Element_new"></a>
+### new Element(selector, [adapter], [index])
+
+| Param | Type |
+| --- | --- |
+| selector | <code>string</code> | 
+| [adapter] | <code>Object</code> | 
+| [index] | <code>number</code> | 
+
+<a name="Element+selector"></a>
+### element.selector ⇒ <code>string</code>
+**Kind**: instance property of <code>[Element](#Element)</code>  
+<a name="Element+index"></a>
+### element.index ⇒ <code>number</code>
+**Kind**: instance property of <code>[Element](#Element)</code>  
+<a name="Elements"></a>
+## Elements
+represents a collection of Elements
+
 **Kind**: global class  
 
+* [Elements](#Elements)
+    * [.length](#Elements+length) ⇒ <code>Promise.&lt;int&gt;</code>
+    * [.first](#Elements+first) ⇒ <code>[Element](#Element)</code>
+    * [.last](#Elements+last) ⇒ <code>[Promise.&lt;Element&gt;](#Element)</code>
+    * [.at()](#Elements+at) ⇒ <code>[Element](#Element)</code>
+
+<a name="Elements+length"></a>
+### elements.length ⇒ <code>Promise.&lt;int&gt;</code>
+promises to return the length of elements in the collection
+
+**Kind**: instance property of <code>[Elements](#Elements)</code>  
+<a name="Elements+first"></a>
+### elements.first ⇒ <code>[Element](#Element)</code>
+returns and element representing the first element in collection
+
+**Kind**: instance property of <code>[Elements](#Elements)</code>  
+<a name="Elements+last"></a>
+### elements.last ⇒ <code>[Promise.&lt;Element&gt;](#Element)</code>
+promises to return an element representing the last element in collection
+
+**Kind**: instance property of <code>[Elements](#Elements)</code>  
+<a name="Elements+at"></a>
+### elements.at() ⇒ <code>[Element](#Element)</code>
+returns an element representing the nth element in collection
+
+**Kind**: instance method of <code>[Elements](#Elements)</code>  
+<a name="Interface"></a>
+## Interface
+**Kind**: global class  
+
+## Adapter interface
+
+```
+contextulise - Interface dependency - clone an adapter with custom root selector
+findAll - Elements dependency - find a collection of elements given a selector
+methods - Element dependency - return list of methods that can be exposed for a single element
+```
 ---
 
-# TODOS (till v0.0.1)
+# Road Map
+
+## v0.0.1
 
 - [x] proof of concept
-- [ ] adapter: add set_element_value method
-- [ ] adapter: add get_element_value method
-- [ ] adapter: add click_element method
-- [ ] component => add textfield - to auto define helper methods
-- [ ] component => add button - to auto define helper methods
 - [ ] used for a production ready system #proofOfUsefulness
-- [ ] where possible use "waitUntil" #on-goingly
-- [ ] complete documentation #on-goingly
+- [ ] complete documentation and examples
+- [ ] implement selenium driver based adapter (webdriverio, selenium-webdriver)
+- [ ] implement non-selenium driver adapter (phantomjs, zombiejs)
+- [ ] update documentation and examples
+
+## Thoughts
+
+* Could this be used to write run browser driven tests, from within a browser? (e.g. using a insecure iframe ;)
 
 ---
 
@@ -89,4 +141,4 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ---
-Generated: Sat 19 Dec 2015 12:42:52 GMT
+Generated: Tue 22 Dec 2015 12:58:49 GMT

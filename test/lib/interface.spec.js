@@ -2,7 +2,6 @@
 
 var test = require('ava')
 var sinon = require('sinon')
-var Promise = require('bluebird')
 var src = require('sequire')
 var Interface = src('index').Interface
 var Element = src('index').Element
@@ -12,17 +11,6 @@ test('get adapter', t => {
   var adapter = {}
   var p = new Interface(adapter)
   t.same(adapter, p.adapter)
-})
-
-test('get driver', t => {
-  var driver = {}
-  var adapter = {
-    get driver () {
-      return driver
-    }
-  }
-  var p = new Interface(adapter)
-  t.same(driver, p.driver)
 })
 
 test('define and access single element', t => {
@@ -82,6 +70,7 @@ test('define and access a sub interface', t => {
 
   t.ok(adapter.contextulise.calledOnce)
   t.same(adapter.contextulise.lastCall.args.length, 1)
+
   var e = adapter.contextulise.lastCall.args[0]
   t.same(e.constructor, Element)
   t.same(e.selector, 'nav')
@@ -92,7 +81,8 @@ test('define and access a sub interface', t => {
   t.same(p.main_menu.option.adapter, secondContextedAdapter)
   t.ok(contextedAdapter.contextulise.calledOnce)
   t.same(contextedAdapter.contextulise.lastCall.args.length, 1)
-  var e = contextedAdapter.contextulise.lastCall.args[0]
+
+  e = contextedAdapter.contextulise.lastCall.args[0]
   t.same(e.constructor, Element)
   t.same(e.selector, 'li')
   t.same(e.index, undefined)
