@@ -8,7 +8,7 @@ var app = express()
 app.get('/', (req, res) => {
   res.send(
     '<html><body>' +
-      '<div id="welcome">Hello world</div>' +
+      '<div id="welcome">Hello World</div>' +
       '<input name="q" placeholder="Enter some text here">' +
       '<input type="submit" name="btnK" value="Submit">' +
     '</body></html>'

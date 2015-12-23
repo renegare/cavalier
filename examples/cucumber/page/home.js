@@ -8,12 +8,12 @@ class HomePage extends Interface {
   constructor (adapter) {
     super(adapter)
 
-    this.element('search_box', 'input[name=q]')
-    this.element('search_button', 'input[name=btnK]')
+    this.element('field', 'input[name=q]')
+    this.element('submit', 'input[name=btnK]')
   }
 
   get visible () {
-    return Promise.join(this.search_box.visible(), this.search_button.visible())
+    return Promise.join(this.field.visible(), this.submit.visible())
       .then(function (visibles) {
         return !visibles.some(v => v !== true)
       })
