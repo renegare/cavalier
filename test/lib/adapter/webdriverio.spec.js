@@ -118,3 +118,10 @@ test('clone and contextulise adapter (findAll)', t => {
       t.same(e, elements)
     })
 })
+
+test('get context', t => {
+  var adapter = t.context.adapter
+  var adapterWithContext = adapter.contextulise(new Element('.root'))
+  t.same(adapter.context('.root'), '.root')
+  t.same(adapterWithContext.context('.element'), '.root .element')
+})
