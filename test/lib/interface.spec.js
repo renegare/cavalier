@@ -58,9 +58,11 @@ test('define and access collection of elements', t => {
 test('define a sub interface', t => {
   var secondContextedAdapter = {}
   var contextedAdapter = {
+    context: sinon.stub().returns('nav li'),
     contextulise: sinon.stub().returns(secondContextedAdapter)
   }
   var adapter = {
+    context: sinon.stub().returns('nav'),
     contextulise: sinon.stub().returns(contextedAdapter)
   }
 
@@ -86,7 +88,7 @@ test('define a sub interface', t => {
 
   e = contextedAdapter.contextulise.lastCall.args[0]
   t.same(e.constructor, Element)
-  t.same(e.selector, 'li')
+  t.same(e.selector, 'nav li')
   t.same(e.index, 0)
 })
 

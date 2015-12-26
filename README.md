@@ -215,12 +215,13 @@ returns an object that represents the nth inteface in collection
 
 ## Custom Adapter interface
 
-The following methods are required for a creating custom adapters:
+The following methods are the minimum requirements for a custom adapter:
 
 ```
-contextulise - Interface dependency - clone an adapter with custom root selector
-findAll - Elements dependency - find a collection of elements given a selector
-methods - Element dependency - return list of methods that can be exposed for a single element
+contextulise({Element} e)   => {Object}         (dependants: Interface)
+context({string} selector)  => {string}         (dependants: Element)
+length(Element e)           => {number}         (dependants: Elements, Interfaces)
+methods()                   => {Array<string>}  Optional: (dependants: Element)
 ```
 
 See ```lib/adapter/webdriverio.js```.
@@ -271,4 +272,4 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ---
-Generated: Sat 26 Dec 2015 11:52:15 GMT
+Generated: Sat 26 Dec 2015 12:01:37 GMT
