@@ -27,6 +27,9 @@ Please see ```examples/cucumber```
 <dt><a href="#Interface">Interface</a></dt>
 <dd><p>represents a whole or sub interface of &quot;elements :?&quot;</p>
 </dd>
+<dt><a href="#Interfaces">Interfaces</a></dt>
+<dd><p>represents a collection of Interfaces</p>
+</dd>
 </dl>
 
 <a name="Element"></a>
@@ -36,18 +39,18 @@ represents a single Element
 **Kind**: global class  
 
 * [Element](#Element)
-    * [new Element(selector, [adapter], [index])](#new_Element_new)
+    * [new Element([selector], [adapter], [index])](#new_Element_new)
     * [.selector](#Element+selector) ⇒ <code>string</code>
     * [.index](#Element+index) ⇒ <code>number</code>
 
 <a name="new_Element_new"></a>
-### new Element(selector, [adapter], [index])
+### new Element([selector], [adapter], [index])
 
-| Param | Type |
-| --- | --- |
-| selector | <code>string</code> | 
-| [adapter] | <code>Object</code> | 
-| [index] | <code>number</code> | 
+| Param | Type | Default |
+| --- | --- | --- |
+| [selector] | <code>string</code> | <code>&quot;&#x27;&#x27;&quot;</code> | 
+| [adapter] | <code>Object</code> |  | 
+| [index] | <code>number</code> | <code>0</code> | 
 
 <a name="Element+selector"></a>
 ### element.selector ⇒ <code>string</code>
@@ -99,19 +102,25 @@ represents a whole or sub interface of "elements :?"
 **Kind**: global class  
 
 * [Interface](#Interface)
-    * [new Interface(adapter)](#new_Interface_new)
+    * [new Interface(adapter, [index])](#new_Interface_new)
+    * [.index](#Interface+index) ⇒ <code>int</code>
     * [.adapter](#Interface+adapter) ⇒ <code>Object</code>
     * [.element(name, selector)](#Interface+element) ⇒ <code>[Element](#Element)</code>
     * [.elements(name, selector)](#Interface+elements) ⇒ <code>[Array.&lt;Element&gt;](#Element)</code>
     * [.section(SubInterface, name, selector)](#Interface+section) ⇒ <code>[Interface](#Interface)</code>
+    * [.sections(SubInterface, name, selector)](#Interface+sections) ⇒ <code>[Interfaces](#Interfaces)</code>
 
 <a name="new_Interface_new"></a>
-### new Interface(adapter)
+### new Interface(adapter, [index])
 
-| Param | Type |
-| --- | --- |
-| adapter | <code>Object</code> | 
+| Param | Type | Default |
+| --- | --- | --- |
+| adapter | <code>Object</code> |  | 
+| [index] | <code>number</code> | <code>0</code> | 
 
+<a name="Interface+index"></a>
+### interface.index ⇒ <code>int</code>
+**Kind**: instance property of <code>[Interface](#Interface)</code>  
 <a name="Interface+adapter"></a>
 ### interface.adapter ⇒ <code>Object</code>
 **Kind**: instance property of <code>[Interface](#Interface)</code>  
@@ -142,6 +151,66 @@ represents a whole or sub interface of "elements :?"
 | SubInterface | <code>[Interface](#Interface)</code> | 
 | name | <code>string</code> | 
 | selector | <code>string</code> | 
+
+<a name="Interface+sections"></a>
+### interface.sections(SubInterface, name, selector) ⇒ <code>[Interfaces](#Interfaces)</code>
+**Kind**: instance method of <code>[Interface](#Interface)</code>  
+
+| Param | Type |
+| --- | --- |
+| SubInterface | <code>[Interface](#Interface)</code> | 
+| name | <code>string</code> | 
+| selector | <code>string</code> | 
+
+<a name="Interfaces"></a>
+## Interfaces
+represents a collection of Interfaces
+
+**Kind**: global class  
+
+* [Interfaces](#Interfaces)
+    * [new Interfaces(SubInterface, adapter)](#new_Interfaces_new)
+    * [.adapter](#Interfaces+adapter) ⇒ <code>Object</code>
+    * [.length](#Interfaces+length) ⇒ <code>Promise.&lt;int&gt;</code>
+    * [.first](#Interfaces+first) ⇒ <code>[Element](#Element)</code>
+    * [.last](#Interfaces+last) ⇒ <code>[Element](#Element)</code>
+    * [.at(nth)](#Interfaces+at) ⇒ <code>[Element](#Element)</code>
+
+<a name="new_Interfaces_new"></a>
+### new Interfaces(SubInterface, adapter)
+
+| Param | Type | Description |
+| --- | --- | --- |
+| SubInterface | <code>Inteface</code> | class |
+| adapter | <code>Object</code> |  |
+
+<a name="Interfaces+adapter"></a>
+### interfaces.adapter ⇒ <code>Object</code>
+**Kind**: instance property of <code>[Interfaces](#Interfaces)</code>  
+<a name="Interfaces+length"></a>
+### interfaces.length ⇒ <code>Promise.&lt;int&gt;</code>
+promises to return the length of interfaces in the collection
+
+**Kind**: instance property of <code>[Interfaces](#Interfaces)</code>  
+<a name="Interfaces+first"></a>
+### interfaces.first ⇒ <code>[Element](#Element)</code>
+returns an object that represents the first inteface in collection
+
+**Kind**: instance property of <code>[Interfaces](#Interfaces)</code>  
+<a name="Interfaces+last"></a>
+### interfaces.last ⇒ <code>[Element](#Element)</code>
+returns an object that represents the last inteface in the collection
+
+**Kind**: instance property of <code>[Interfaces](#Interfaces)</code>  
+<a name="Interfaces+at"></a>
+### interfaces.at(nth) ⇒ <code>[Element](#Element)</code>
+returns an object that represents the nth inteface in collection
+
+**Kind**: instance method of <code>[Interfaces](#Interfaces)</code>  
+
+| Param | Type |
+| --- | --- |
+| nth | <code>number</code> | 
 
 
 ## Custom Adapter interface
@@ -202,4 +271,4 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ---
-Generated: Thu 24 Dec 2015 09:53:15 GMT
+Generated: Sat 26 Dec 2015 10:51:32 GMT
