@@ -7,7 +7,9 @@ var Element = src('index').Element
 test.beforeEach('setup stubs', t => {
   var driver = {}
   driver.init = sinon.stub().returns(driver)
-  driver.waitUntil = sinon.stub().callsArg(0)
+  driver.waitUntil = (cb) => {
+    return cb()
+  }
 
   var wdio = { remote: sinon.stub().returns(driver) }
   var Adapter = proxy(src('lib/adapter/webdriverio', true), {
@@ -28,8 +30,7 @@ test('find single element matching selector ', t => {
   var driver = t.context.driver
   var elements = [{element: 0}, {element: 1}, {element: 2}]
 
-  driver.elements = sinon.stub().returns(Promise.resolve())
-  driver.waitUntil.returns(Promise.resolve({value: elements}))
+  driver.elements = sinon.stub().returns(Promise.resolve({value: elements}))
 
   return adapter.find(new Element('.element'))
     .then(e => {
@@ -43,8 +44,7 @@ test('find nth element of a collection that matches the selector', t => {
   var driver = t.context.driver
   var elements = [{element: 0}, {element: 1}, {element: 2}]
 
-  driver.elements = sinon.stub().returns(Promise.resolve())
-  driver.waitUntil.returns(Promise.resolve({value: elements}))
+  driver.elements = sinon.stub().returns(Promise.resolve({value: elements}))
 
   return adapter.find(new Element('.elements', undefined, 2))
     .then(e => {
@@ -57,8 +57,8 @@ test('find last element of a collection that matches the selector', t => {
   var adapter = t.context.adapter
   var driver = t.context.driver
   var elements = [{element: 0}, {element: 1}, {element: 2}]
-  driver.elements = sinon.stub().returns(Promise.resolve())
-  driver.waitUntil.returns(Promise.resolve({value: elements}))
+
+  driver.elements = sinon.stub().returns(Promise.resolve({value: elements}))
 
   return adapter.find(new Element('.elements', undefined, -1))
     .then(e => {
@@ -72,8 +72,7 @@ test('findAll element matching selector', t => {
   var driver = t.context.driver
   var elements = [{some: 'element'}, {some: 'element'}, {some: 'element'}]
 
-  driver.elements = sinon.stub().returns(Promise.resolve())
-  driver.waitUntil.returns(Promise.resolve(elements))
+  driver.elements = sinon.stub().returns(Promise.resolve({value: elements}))
 
   return adapter.findAll(new Element('.elements'))
     .then(e => {
@@ -87,8 +86,7 @@ test('clone and contextulise adapter (find)', t => {
   var driver = t.context.driver
   var elements = [{element: 0}, {element: 1}, {element: 2}]
 
-  driver.elements = sinon.stub().returns(Promise.resolve())
-  driver.waitUntil.returns(Promise.resolve({value: elements}))
+  driver.elements = sinon.stub().returns(Promise.resolve({value: elements}))
 
   return adapter.find(new Element('.element'))
     .then(e => {
@@ -102,13 +100,12 @@ test('clone and contextulise adapter (findAll)', t => {
   var driver = t.context.driver
   var elements = [{some: 'element'}, {some: 'element'}, {some: 'element'}]
 
-  driver.elements = sinon.stub().returns(Promise.resolve())
-  driver.waitUntil.returns(Promise.resolve({value: elements}))
+  driver.elements = sinon.stub().returns(Promise.resolve({value: elements}))
 
   return adapter.findAll(new Element('.elements'))
     .then(e => {
       t.same(driver.elements.lastCall.args, ['.root .elements'])
-      t.same(e, {value: elements})
+      t.same(e, elements)
     })
 })
 
@@ -117,4 +114,18 @@ test('get context', t => {
   var adapterWithContext = adapter.contextulise(new Element('.root'))
   t.same(adapter.context('.root'), '.root')
   t.same(adapterWithContext.context('.element'), '.root .element')
+})
+
+test('get length of matching elements', t => {
+  var adapter = t.context.adapter
+  var driver = t.context.driver
+  var elements = [{some: 'element'}, {some: 'element'}, {some: 'element'}, {some: 'element'}]
+
+  driver.elements = sinon.stub().returns(Promise.resolve({value: elements}))
+
+  return adapter.length(new Element('.elements'))
+    .then(l => {
+      t.same(driver.elements.lastCall.args, ['.elements'])
+      t.same(l, 4)
+    })
 })

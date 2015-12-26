@@ -10,6 +10,7 @@ class MockAdapter {
   constructor () {
     this.lengthStub = sinon.stub()
     this.findAllStub = sinon.stub()
+    this.contextStub = sinon.stub()
   }
 
   get methods () {
@@ -17,7 +18,7 @@ class MockAdapter {
   }
 
   context (selector) {
-    return selector
+    return this.contextStub.apply(this, arguments)
   }
 
   length () {
@@ -28,6 +29,7 @@ class MockAdapter {
 test('length of matching elements', co(function * (t) {
   var adapter = new MockAdapter()
   var lengthStub = adapter.lengthStub.returns(Promise.resolve(3))
+  var contextStub = adapter.contextStub.returns('.root')
 
   var es = new Interfaces(Interface, adapter)
   t.same(yield es.length, 3)
@@ -35,8 +37,11 @@ test('length of matching elements', co(function * (t) {
   t.same(lengthStub.lastCall.args.length, 1)
   var e = lengthStub.lastCall.args[0]
   t.same(e.constructor, Element)
-  t.same(e.selector, '')
+  t.same(e.selector, '.root')
   t.same(e.index, 0)
+
+  t.ok(contextStub.calledOnce)
+  t.same(contextStub.lastCall.args, [''])
 }))
 
 test('first element', co(function * (t) {
