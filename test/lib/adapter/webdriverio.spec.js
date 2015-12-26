@@ -23,17 +23,13 @@ test.beforeEach('setup stubs', t => {
   t.context.adapter = adapter
 })
 
-test('get exposable methods', t => {
-  t.same(t.context.adapter.methods, ['find', 'findAll'])
-})
-
 test('find single element matching selector ', t => {
   var adapter = t.context.adapter
   var driver = t.context.driver
   var elements = [{element: 0}, {element: 1}, {element: 2}]
 
   driver.elements = sinon.stub().returns(Promise.resolve())
-  driver.waitUntil.returns(Promise.resolve(elements))
+  driver.waitUntil.returns(Promise.resolve({value: elements}))
 
   return adapter.find(new Element('.element'))
     .then(e => {
@@ -48,7 +44,7 @@ test('find nth element of a collection that matches the selector', t => {
   var elements = [{element: 0}, {element: 1}, {element: 2}]
 
   driver.elements = sinon.stub().returns(Promise.resolve())
-  driver.waitUntil.returns(Promise.resolve(elements))
+  driver.waitUntil.returns(Promise.resolve({value: elements}))
 
   return adapter.find(new Element('.elements', undefined, 2))
     .then(e => {
@@ -57,17 +53,14 @@ test('find nth element of a collection that matches the selector', t => {
     })
 })
 
-test('find "promised nth" element of a collection that matches the selector', t => {
+test('find last element of a collection that matches the selector', t => {
   var adapter = t.context.adapter
   var driver = t.context.driver
   var elements = [{element: 0}, {element: 1}, {element: 2}]
-
   driver.elements = sinon.stub().returns(Promise.resolve())
-  driver.waitUntil.returns(Promise.resolve(elements))
+  driver.waitUntil.returns(Promise.resolve({value: elements}))
 
-  return adapter.find(new Element('.elements', undefined, () => {
-    return Promise.resolve(2)
-  }))
+  return adapter.find(new Element('.elements', undefined, -1))
     .then(e => {
       t.same(driver.elements.lastCall.args, ['.elements'])
       t.same(e, elements[2])
@@ -95,7 +88,7 @@ test('clone and contextulise adapter (find)', t => {
   var elements = [{element: 0}, {element: 1}, {element: 2}]
 
   driver.elements = sinon.stub().returns(Promise.resolve())
-  driver.waitUntil.returns(Promise.resolve(elements))
+  driver.waitUntil.returns(Promise.resolve({value: elements}))
 
   return adapter.find(new Element('.element'))
     .then(e => {
@@ -110,12 +103,12 @@ test('clone and contextulise adapter (findAll)', t => {
   var elements = [{some: 'element'}, {some: 'element'}, {some: 'element'}]
 
   driver.elements = sinon.stub().returns(Promise.resolve())
-  driver.waitUntil.returns(Promise.resolve(elements))
+  driver.waitUntil.returns(Promise.resolve({value: elements}))
 
   return adapter.findAll(new Element('.elements'))
     .then(e => {
       t.same(driver.elements.lastCall.args, ['.root .elements'])
-      t.same(e, elements)
+      t.same(e, {value: elements})
     })
 })
 

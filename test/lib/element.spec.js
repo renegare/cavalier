@@ -24,15 +24,18 @@ class MockAdapter {
   }
 }
 
-test('Element exposes and proxies adapter methods', co(function * (t) {
+test('exposes and proxies adapter methods', co(function * (t) {
   var element = {some: 'object'}
   var adapter = new MockAdapter()
   var findStub = adapter.findStub.returns(Promise.resolve(element))
+  adapter.context = (selector) => {
+    return 'prefix ' + selector
+  }
   adapter.methodsStub.returns(['find'])
 
   var e = new Element('button.red', adapter)
-  t.same(e.selector, 'button.red')
-  t.same(e.index, undefined)
+  t.same(e.selector, 'prefix button.red')
+  t.same(e.index, 0)
   t.same(e.findAll, undefined)
   t.same(yield e.find(), element)
   t.ok(findStub.calledOnce)
@@ -53,7 +56,6 @@ test('Element correctly passes on additional arguments', co(function * (t) {
   t.same(findAllStub.lastCall.args, [e, 'additional', 'args'])
 }))
 
-
 test('Element exposes only methods (when no method param is available)', t => {
   var element = {some: 'object'}
   var adapter = new MockAdapter()
@@ -61,4 +63,9 @@ test('Element exposes only methods (when no method param is available)', t => {
 
   var e = new Element('button.red', adapter)
   t.same(Object.keys(e), ['find', 'findAll'])
+})
+
+test('selector when no adapter is provided', t => {
+  var e = new Element('button.red')
+  t.same(e.selector, 'button.red')
 })

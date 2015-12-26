@@ -17,6 +17,10 @@ class MockAdapter {
     return []
   }
 
+  context (selector) {
+    return selector
+  }
+
   length () {
     return this.lengthStub.apply(this, arguments)
   }
@@ -33,7 +37,7 @@ test('length of matching elements', co(function * (t) {
   var e = lengthStub.lastCall.args[0]
   t.same(e.constructor, Element)
   t.same(e.selector, '')
-  t.same(e.index, undefined)
+  t.same(e.index, 0)
 }))
 
 test('first element', co(function * (t) {
