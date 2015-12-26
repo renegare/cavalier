@@ -238,6 +238,8 @@ See ```lib/adapter/webdriverio.js```.
 - [ ] implement selenium driver based adapter (webdriverio, selenium-webdriver)
 - [ ] implement non-selenium driver adapter (phantomjs, zombiejs)
 - [ ] update documentation and examples
+- [ ] rename Interface(s) => Component(s)
+- [ ] rename adapter.contextulise => clone
 
 ## Thoughts
 
@@ -272,4 +274,4 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ---
-Generated: Sat 26 Dec 2015 12:01:37 GMT
+Generated: Sat 26 Dec 2015 12:51:34 GMT
