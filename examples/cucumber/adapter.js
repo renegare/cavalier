@@ -6,10 +6,6 @@ var expect = require('chai').expect
 var WebdriverIOAdapter = require('../../lib/adapter/webdriverio')
 
 class Adapter extends WebdriverIOAdapter {
-  get methods () {
-    return super.methods.concat(['visible', 'fill', 'click'])
-  }
-
   visible (e) {
     return this.driver.waitForVisible(e.selector, 3000)
   }
