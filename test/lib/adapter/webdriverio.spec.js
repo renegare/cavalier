@@ -4,7 +4,6 @@ var src = require('sequire')
 var proxy = require('proxyquire').noCallThru()
 var Element = src('index').Element
 var Interface = src('index').Interface
-var Interfaces = src('index').Interfaces
 
 test.beforeEach('setup stubs', t => {
   var driver = {}
@@ -119,7 +118,7 @@ test('get context and context resolution', t => {
   t.same(adapterWithContext.context('.element'), '.root .element')
 
   var e = new Element('.test', adapterWithContext)
-  // t.same(e.selector, '.root .test')
+  t.same(e.selector, '.root .test')
 
   var i = new Interface(adapterWithContext)
 
