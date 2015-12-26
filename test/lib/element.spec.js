@@ -57,7 +57,6 @@ test('Element correctly passes on additional arguments', co(function * (t) {
 }))
 
 test('Element exposes only methods (when no method param is available)', t => {
-  var element = {some: 'object'}
   var adapter = new MockAdapter()
   delete adapter.methods
 

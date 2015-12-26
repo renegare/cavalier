@@ -1,6 +1,5 @@
 var test = require('ava')
 var sinon = require('sinon')
-var proxy = require('proxyquire').noCallThru()
 var src = require('sequire')
 var Interfaces = src('index').Interfaces
 var Interface = src('index').Interface

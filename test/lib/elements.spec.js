@@ -1,6 +1,5 @@
 var test = require('ava')
 var sinon = require('sinon')
-var proxy = require('proxyquire').noCallThru()
 var src = require('sequire')
 var Elements = src('index').Elements
 var Element = src('index').Element
