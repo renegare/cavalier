@@ -24,7 +24,7 @@ class MockAdapter {
   }
 }
 
-test('Element exposes proxy adapter methods', co(function * (t) {
+test('Element exposes and proxies adapter methods', co(function * (t) {
   var element = {some: 'object'}
   var adapter = new MockAdapter()
   var findStub = adapter.findStub.returns(Promise.resolve(element))
@@ -52,3 +52,13 @@ test('Element correctly passes on additional arguments', co(function * (t) {
   t.ok(findAllStub.calledOnce)
   t.same(findAllStub.lastCall.args, [e, 'additional', 'args'])
 }))
+
+
+test('Element exposes only methods (when no method param is available)', t => {
+  var element = {some: 'object'}
+  var adapter = new MockAdapter()
+  delete adapter.methods
+
+  var e = new Element('button.red', adapter)
+  t.same(Object.keys(e), ['find', 'findAll'])
+})

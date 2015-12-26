@@ -4,13 +4,15 @@ var test = require('ava')
 var sinon = require('sinon')
 var src = require('sequire')
 var Interface = src('index').Interface
+var Interfaces = src('index').Interfaces
 var Element = src('index').Element
 var proxy = require('proxyquire').noCallThru()
 
 test('get adapter', t => {
   var adapter = {}
   var p = new Interface(adapter)
-  t.same(adapter, p.adapter)
+  t.same(p.adapter, adapter)
+  t.same(p.index, undefined)
 })
 
 test('define and access single element', t => {
@@ -53,7 +55,7 @@ test('define and access collection of elements', t => {
   t.same(constructorStub.lastCall.args, ['nav li a', adapter])
 })
 
-test('define and access a sub interface', t => {
+test('define a sub interface', t => {
   var secondContextedAdapter = {}
   var contextedAdapter = {
     contextulise: sinon.stub().returns(secondContextedAdapter)
@@ -86,4 +88,15 @@ test('define and access a sub interface', t => {
   t.same(e.constructor, Element)
   t.same(e.selector, 'li')
   t.same(e.index, undefined)
+})
+
+test('define a collection of sub interfaces', t => {
+  var contextedAdapter = {}
+  var adapter = {
+    contextulise: sinon.stub().returns(contextedAdapter)
+  }
+  var p = new Interface(adapter)
+  p.sections(Interface, 'main_menu', 'nav')
+  t.same(p.main_menu.constructor, Interfaces)
+  t.same(p.main_menu.adapter, contextedAdapter)
 })
