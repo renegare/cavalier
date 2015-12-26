@@ -89,7 +89,8 @@ test('clone and contextulise adapter (find)', t => {
 
   driver.elements = sinon.stub().returns(Promise.resolve({value: elements}))
 
-  return adapter.find(new Element('.element'))
+  var e = new Element('.element', adapter)
+  return e.find()
     .then(e => {
       t.same(driver.elements.lastCall.args, ['.root .element'])
       t.same(e, elements[0])
@@ -103,7 +104,8 @@ test('clone and contextulise adapter (findAll)', t => {
 
   driver.elements = sinon.stub().returns(Promise.resolve({value: elements}))
 
-  return adapter.findAll(new Element('.elements'))
+  var e = new Element('.elements', adapter)
+  return e.findAll()
     .then(e => {
       t.same(driver.elements.lastCall.args, ['.root .elements'])
       t.same(e, elements)
