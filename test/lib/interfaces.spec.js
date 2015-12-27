@@ -57,7 +57,6 @@ test('nth element', co(function * (t) {
   var e = es.at(123)
   t.same(e.constructor, Interface)
   t.same(e.adapter, contextedAdapter)
-  t.same(e.index, 123)
 }))
 
 test('first element', co(function * (t) {
@@ -65,7 +64,6 @@ test('first element', co(function * (t) {
   var es = new Interfaces(Interface, adapter)
   var e = es.first
   t.same(e.constructor, Interface)
-  t.same(e.index, 0)
 }))
 
 test('last element', co(function * (t) {
@@ -73,5 +71,4 @@ test('last element', co(function * (t) {
   var es = new Interfaces(Interface, adapter)
   var e = es.last
   t.same(e.constructor, Interface)
-  t.same(e.index, -1)
 }))

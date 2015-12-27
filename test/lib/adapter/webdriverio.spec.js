@@ -53,8 +53,6 @@ test('get context and context resolution', t => {
   t.same(i.main_menu.options.last.selector, '.root nav li:nth-last-child(1)')
 
   i.sections(Interface, 'social_links', '.social-links')
-  t.same(i.social_links.at(123).index, 123)
-
   t.same(i.social_links.at(123).adapter.context(), '.root .social-links:nth-child(124)')
 })
 
