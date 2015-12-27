@@ -2,6 +2,7 @@
 
 var co = require('bluebird').coroutine
 var expect = require('chai').expect
+var faker = require('faker')
 
 var WebdriverIOAdapter = require('../../lib/adapter/webdriverio')
 
@@ -11,26 +12,14 @@ class Adapter extends WebdriverIOAdapter {
   }
 
   fill (e) {
-    return co(function * (e) {
-      var es = yield this.findAll(e)
-      var e = es[es.index || 0]
-      yield this.driver.elementIdValue(e.ELEMENT, 'mudi was here')
-      var res = yield this.driver.elementIdAttribute(e.ELEMENT, 'value')
-      expect(res.value).to.eql('mudi was here')
-      return true
-    }.bind(this))(e)
+    this.driver.setValue(e.selector, faker.lorem.sentence())
   }
 
   click (e) {
     return this.driver.click(e.selector)
   }
 
-  length (e) {
-    return this.driver.elements(e.selector)
-      .then(res => res.value.length)
-  }
-
-  length (e) {
+  text (e) {
     return this.driver.getText(e.selector)
   }
 }

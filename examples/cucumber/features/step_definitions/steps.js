@@ -32,8 +32,15 @@ module.exports = function () {
     expect(length).to.equal(4)
   }))
 
-  this.Then(/^the last item should display the text "([^"]*)"$/, function (text) {
-    return this.page.listItems.last.text()
+  this.Then(/^the (\d)(?:nd|rd)? item should display the text "([^"]*)"$/, function (position, text) {
+    return this.page.listItems.at(position - 1).text()
+      .then((txt) => {
+        expect(txt).to.equal(text)
+      })
+  })
+
+  this.Then(/^the (first|last) item should display the text "([^"]*)"$/, function (position, text) {
+    return this.page.listItems[position].text()
       .then((txt) => {
         expect(txt).to.equal(text)
       })

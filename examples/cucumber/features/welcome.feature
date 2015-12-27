@@ -7,4 +7,7 @@ Scenario: User visits the site
   And I click submit on the page
   Then I should see "Hello World"
   And there should be four list items
+  And the first item should display the text "First Item"
+  And the 2nd item should display the text "Second Item"
+  And the 3rd item should display the text "Third Item"
   And the last item should display the text "Fourth Item"

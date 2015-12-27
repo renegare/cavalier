@@ -12,9 +12,9 @@ app.get('/', (req, res) => {
       '<input name="q" placeholder="Enter some text here">' +
       '<input type="submit" name="btnK" value="Submit">' +
       '<ul>' +
-        '<li></li>' +
-        '<li></li>' +
-        '<li></li>' +
+        '<li>First Item</li>' +
+        '<li>Second Item</li>' +
+        '<li>Third Item</li>' +
         '<li>Fourth Item</li>' +
       '</ul>' +
     '</body></html>'
