@@ -27,4 +27,15 @@ module.exports = function () {
       expect(src.value).to.contain(text)
     }.bind(this))()
   })
+  this.Then(/^there should be four list items$/, co(function * () {
+    var length = yield this.page.listItems.length
+    expect(length).to.equal(4)
+  }))
+
+  this.Then(/^the last item should display the text "([^"]*)"$/, function (text) {
+    return this.page.listItems.last.text()
+      .then((txt) => {
+        expect(txt).to.equal(text)
+      })
+  })
 }

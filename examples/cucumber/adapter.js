@@ -24,6 +24,15 @@ class Adapter extends WebdriverIOAdapter {
   click (e) {
     return this.driver.click(e.selector)
   }
+
+  length (e) {
+    return this.driver.elements(e.selector)
+      .then(res => res.value.length)
+  }
+
+  length (e) {
+    return this.driver.getText(e.selector)
+  }
 }
 
 module.exports = Adapter

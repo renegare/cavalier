@@ -11,6 +11,12 @@ app.get('/', (req, res) => {
       '<div id="welcome">Hello World</div>' +
       '<input name="q" placeholder="Enter some text here">' +
       '<input type="submit" name="btnK" value="Submit">' +
+      '<ul>' +
+        '<li></li>' +
+        '<li></li>' +
+        '<li></li>' +
+        '<li>Fourth Item</li>' +
+      '</ul>' +
     '</body></html>'
   )
 })

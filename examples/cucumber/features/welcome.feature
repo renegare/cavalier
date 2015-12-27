@@ -6,3 +6,5 @@ Scenario: User visits the site
   When I fill in the field
   And I click submit on the page
   Then I should see "Hello World"
+  And there should be four list items
+  And the last item should display the text "Fourth Item"
