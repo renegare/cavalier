@@ -15,8 +15,8 @@ class MockAdapter {
     return []
   }
 
-  context (selector) {
-    return selector
+  context (e) {
+    return e.selector
   }
 
   length () {
@@ -38,16 +38,6 @@ test('length of matching elements', co(function * (t) {
   t.same(e.index, undefined)
 }))
 
-test('first element', co(function * (t) {
-  var adapter = new MockAdapter()
-
-  var es = new Elements('nav li', adapter)
-  var e = es.first
-  t.same(e.constructor, Element)
-  t.same(e.selector, 'nav li')
-  t.same(e.index, 0)
-}))
-
 test('nth element', co(function * (t) {
   var adapter = new MockAdapter()
 
@@ -56,6 +46,16 @@ test('nth element', co(function * (t) {
   t.same(e.constructor, Element)
   t.same(e.selector, 'nav li')
   t.same(e.index, 123)
+}))
+
+test('first element', co(function * (t) {
+  var adapter = new MockAdapter()
+
+  var es = new Elements('nav li', adapter)
+  var e = es.first
+  t.same(e.constructor, Element)
+  t.same(e.selector, 'nav li')
+  t.same(e.index, 0)
 }))
 
 test('last element', co(function * (t) {

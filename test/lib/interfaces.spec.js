@@ -18,7 +18,7 @@ class MockAdapter {
     return []
   }
 
-  context (selector) {
+  context () {
     return this.contextStub.apply(this, arguments)
   }
 
@@ -34,7 +34,7 @@ class MockAdapter {
 test('length of matching elements', co(function * (t) {
   var adapter = new MockAdapter()
   var lengthStub = adapter.lengthStub.returns(Promise.resolve(3))
-  var contextStub = adapter.contextStub.returns('.root')
+  adapter.contextStub.returns('.root')
 
   var es = new Interfaces(Interface, adapter)
   t.same(yield es.length, 3)
@@ -44,9 +44,6 @@ test('length of matching elements', co(function * (t) {
   t.same(e.constructor, Element)
   t.same(e.selector, '.root')
   t.same(e.index, undefined)
-
-  t.ok(contextStub.calledOnce)
-  t.same(contextStub.lastCall.args, ['', undefined])
 }))
 
 test('nth element', co(function * (t) {

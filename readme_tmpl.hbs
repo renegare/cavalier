@@ -22,8 +22,8 @@ Please see ```examples/cucumber```
 The following methods are the minimum requirements for a custom adapter:
 
 ```
-contextulise({Element} e)   => {Object}         (dependants: Interface)
-context({string} selector)  => {string}         (dependants: Element)
+contextulise({Element} e)   => {Object}         (dependants: Interface, Interfaces)
+context({Element} e)        => {string}         (dependants: Element)
 length(Element e)           => {number}         (dependants: Elements, Interfaces)
 methods()                   => {Array<string>}  Optional: (dependants: Element)
 ```

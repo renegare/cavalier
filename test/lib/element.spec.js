@@ -42,13 +42,17 @@ test('exposes and proxies adapter methods', co(function * (t) {
   t.same(e.findAll, undefined)
   t.same(e.context, undefined)
 
-  t.same(e.selector, 'some selector')
-  t.ok(contextStub.calledOnce)
-  t.same(contextStub.lastCall.args, ['button.red', undefined])
-
   t.same(yield e.find(), element)
   t.ok(findStub.calledOnce)
   t.same(findStub.lastCall.args, [e])
+
+  t.same(e.selector, 'some selector')
+  t.ok(contextStub.calledOnce)
+  t.ok(contextStub.lastCall.args.length === 1)
+  e = contextStub.lastCall.args[0]
+  t.ok(e.selector === 'button.red')
+  t.ok(e.index === undefined)
+  t.ok(e.adapter === undefined)
 }))
 
 test('correctly passes on additional arguments', co(function * (t) {

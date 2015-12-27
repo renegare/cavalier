@@ -31,7 +31,7 @@ test('get context and context resolution', t => {
   t.same(adapter.context(), '')
 
   var adapterWithContext = adapter.contextulise(new Element('.root'))
-  t.same(adapterWithContext.context('.element'), '.root .element')
+  t.same(adapterWithContext.context(new Element('.element')), '.root .element')
 
   var e = new Element('.test', adapterWithContext)
   t.same(e.selector, '.root .test')
