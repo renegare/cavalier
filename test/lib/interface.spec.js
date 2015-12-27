@@ -12,7 +12,7 @@ test('get adapter', t => {
   var adapter = {}
   var p = new Interface(adapter)
   t.same(p.adapter, adapter)
-  t.same(p.index, 0)
+  t.same(p.index, undefined)
 })
 
 test('define and access single element', t => {
@@ -78,7 +78,7 @@ test('define a sub interface', t => {
   var e = adapter.contextulise.lastCall.args[0]
   t.same(e.constructor, Element)
   t.same(e.selector, 'nav')
-  t.same(e.index, 0)
+  t.same(e.index, undefined)
 
   p.main_menu.section(Interface, 'option', 'li')
   t.ok(p.main_menu.option.constructor === Interface)
@@ -89,7 +89,7 @@ test('define a sub interface', t => {
   e = contextedAdapter.contextulise.lastCall.args[0]
   t.same(e.constructor, Element)
   t.same(e.selector, 'nav li')
-  t.same(e.index, 0)
+  t.same(e.index, undefined)
 })
 
 test('define a collection of sub interfaces', t => {

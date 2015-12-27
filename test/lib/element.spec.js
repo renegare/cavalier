@@ -9,10 +9,15 @@ class MockAdapter {
     this.findStub = sinon.stub()
     this.findAllStub = sinon.stub()
     this.methodsStub = sinon.stub()
+    this.contextStub = sinon.stub()
   }
 
   get methods () {
     return this.methodsStub.apply(null, arguments)
+  }
+
+  context () {
+    return this.contextStub.apply(null, arguments)
   }
 
   find () {
@@ -28,21 +33,25 @@ test('exposes and proxies adapter methods', co(function * (t) {
   var element = {some: 'object'}
   var adapter = new MockAdapter()
   var findStub = adapter.findStub.returns(Promise.resolve(element))
-  adapter.context = (selector) => {
-    return 'prefix ' + selector
-  }
+  var contextStub = adapter.contextStub.returns('some selector')
+
   adapter.methodsStub.returns(['find'])
 
   var e = new Element('button.red', adapter)
-  t.same(e.selector, 'prefix button.red')
-  t.same(e.index, 0)
+  t.same(e.index, undefined)
   t.same(e.findAll, undefined)
+  t.same(e.context, undefined)
+
+  t.same(e.selector, 'some selector')
+  t.ok(contextStub.calledOnce)
+  t.same(contextStub.lastCall.args, ['button.red', undefined])
+
   t.same(yield e.find(), element)
   t.ok(findStub.calledOnce)
   t.same(findStub.lastCall.args, [e])
 }))
 
-test('Element correctly passes on additional arguments', co(function * (t) {
+test('correctly passes on additional arguments', co(function * (t) {
   var elements = [{some: 'object'}, {some: 'object'}, {some: 'object'}]
   var adapter = new MockAdapter()
   var findAllStub = adapter.findAllStub.returns(Promise.resolve(elements))
@@ -56,12 +65,12 @@ test('Element correctly passes on additional arguments', co(function * (t) {
   t.same(findAllStub.lastCall.args, [e, 'additional', 'args'])
 }))
 
-test('Element exposes only methods (when no method param is available)', t => {
+test('exposes all methods (when no method param is available)', t => {
   var adapter = new MockAdapter()
   delete adapter.methods
 
   var e = new Element('button.red', adapter)
-  t.same(Object.keys(e), ['find', 'findAll'])
+  t.same(Object.keys(e), ['context', 'find', 'findAll'])
 })
 
 test('selector when no adapter is provided', t => {

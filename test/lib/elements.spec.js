@@ -35,7 +35,7 @@ test('length of matching elements', co(function * (t) {
   var e = lengthStub.lastCall.args[0]
   t.same(e.constructor, Element)
   t.same(e.selector, 'nav li')
-  t.same(e.index, 0)
+  t.same(e.index, undefined)
 }))
 
 test('first element', co(function * (t) {

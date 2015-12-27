@@ -11,6 +11,7 @@ class MockAdapter {
     this.lengthStub = sinon.stub()
     this.findAllStub = sinon.stub()
     this.contextStub = sinon.stub()
+    this.contextuliseStub = sinon.stub()
   }
 
   get methods () {
@@ -23,6 +24,10 @@ class MockAdapter {
 
   length () {
     return this.lengthStub.apply(this, arguments)
+  }
+
+  contextulise () {
+    return this.contextuliseStub.apply(this, arguments)
   }
 }
 
@@ -38,38 +43,35 @@ test('length of matching elements', co(function * (t) {
   var e = lengthStub.lastCall.args[0]
   t.same(e.constructor, Element)
   t.same(e.selector, '.root')
-  t.same(e.index, 0)
+  t.same(e.index, undefined)
 
   t.ok(contextStub.calledOnce)
-  t.same(contextStub.lastCall.args, [''])
+  t.same(contextStub.lastCall.args, ['', undefined])
+}))
+
+test('nth element', co(function * (t) {
+  var contextedAdapter = {}
+  var adapter = new MockAdapter()
+  adapter.contextuliseStub.returns(contextedAdapter)
+  var es = new Interfaces(Interface, adapter)
+  var e = es.at(123)
+  t.same(e.constructor, Interface)
+  t.same(e.adapter, contextedAdapter)
+  t.same(e.index, 123)
 }))
 
 test('first element', co(function * (t) {
   var adapter = new MockAdapter()
-
   var es = new Interfaces(Interface, adapter)
   var e = es.first
   t.same(e.constructor, Interface)
-  t.same(e.adapter, adapter)
   t.same(e.index, 0)
-}))
-
-test('nth element', co(function * (t) {
-  var adapter = new MockAdapter()
-
-  var es = new Interfaces(Interface, adapter)
-  var e = es.at(123)
-  t.same(e.constructor, Interface)
-  t.same(e.adapter, adapter)
-  t.same(e.index, 123)
 }))
 
 test('last element', co(function * (t) {
   var adapter = new MockAdapter()
-
   var es = new Interfaces(Interface, adapter)
   var e = es.last
   t.same(e.constructor, Interface)
-  t.same(e.adapter, adapter)
   t.same(e.index, -1)
 }))
