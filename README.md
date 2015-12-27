@@ -42,6 +42,7 @@ represents a single Element
     * [new Element([selector], [adapter], [index])](#new_Element_new)
     * [.selector](#Element+selector) ⇒ <code>string</code>
     * [.index](#Element+index) ⇒ <code>number</code>
+    * [.adapter](#Element+adapter) ⇒ <code>adapter</code>
 
 <a name="new_Element_new"></a>
 ### new Element([selector], [adapter], [index])
@@ -50,13 +51,16 @@ represents a single Element
 | --- | --- | --- |
 | [selector] | <code>string</code> | <code>&quot;&#x27;&#x27;&quot;</code> | 
 | [adapter] | <code>Object</code> |  | 
-| [index] | <code>number</code> | <code>0</code> | 
+| [index] | <code>number</code> |  | 
 
 <a name="Element+selector"></a>
 ### element.selector ⇒ <code>string</code>
 **Kind**: instance property of <code>[Element](#Element)</code>  
 <a name="Element+index"></a>
 ### element.index ⇒ <code>number</code>
+**Kind**: instance property of <code>[Element](#Element)</code>  
+<a name="Element+adapter"></a>
+### element.adapter ⇒ <code>adapter</code>
 **Kind**: instance property of <code>[Element](#Element)</code>  
 <a name="Elements"></a>
 ## Elements
@@ -102,8 +106,7 @@ represents a whole or sub interface of "elements :?"
 **Kind**: global class  
 
 * [Interface](#Interface)
-    * [new Interface(adapter, [index])](#new_Interface_new)
-    * [.index](#Interface+index) ⇒ <code>int</code>
+    * [new Interface(adapter)](#new_Interface_new)
     * [.adapter](#Interface+adapter) ⇒ <code>Object</code>
     * [.element(name, selector)](#Interface+element) ⇒ <code>[Element](#Element)</code>
     * [.elements(name, selector)](#Interface+elements) ⇒ <code>[Array.&lt;Element&gt;](#Element)</code>
@@ -111,16 +114,12 @@ represents a whole or sub interface of "elements :?"
     * [.sections(SubInterface, name, selector)](#Interface+sections) ⇒ <code>[Interfaces](#Interfaces)</code>
 
 <a name="new_Interface_new"></a>
-### new Interface(adapter, [index])
+### new Interface(adapter)
 
-| Param | Type | Default |
-| --- | --- | --- |
-| adapter | <code>Object</code> |  | 
-| [index] | <code>number</code> | <code>0</code> | 
+| Param | Type |
+| --- | --- |
+| adapter | <code>Object</code> | 
 
-<a name="Interface+index"></a>
-### interface.index ⇒ <code>int</code>
-**Kind**: instance property of <code>[Interface](#Interface)</code>  
 <a name="Interface+adapter"></a>
 ### interface.adapter ⇒ <code>Object</code>
 **Kind**: instance property of <code>[Interface](#Interface)</code>  
@@ -218,8 +217,8 @@ returns an object that represents the nth inteface in collection
 The following methods are the minimum requirements for a custom adapter:
 
 ```
-contextulise({Element} e)   => {Object}         (dependants: Interface)
-context({string} selector)  => {string}         (dependants: Element)
+contextulise({Element} e)   => {Object}         (dependants: Interface, Interfaces)
+context({Element} e)        => {string}         (dependants: Element)
 length(Element e)           => {number}         (dependants: Elements, Interfaces)
 methods()                   => {Array<string>}  Optional: (dependants: Element)
 ```
@@ -274,4 +273,4 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ---
-Generated: Sat 26 Dec 2015 13:10:07 GMT
+Generated: Sun 27 Dec 2015 20:23:48 GMT
