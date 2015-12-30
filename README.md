@@ -18,6 +18,8 @@ Please see ```examples/cucumber```
 ## Classes
 
 <dl>
+<dt><a href="#Adapter">Adapter</a></dt>
+<dd></dd>
 <dt><a href="#Element">Element</a></dt>
 <dd><p>represents a single Element</p>
 </dd>
@@ -32,6 +34,41 @@ Please see ```examples/cucumber```
 </dd>
 </dl>
 
+<a name="Adapter"></a>
+## Adapter
+**Kind**: global class  
+
+* [Adapter](#Adapter)
+    * [new Adapter(e)](#new_Adapter_new)
+    * [.context([Element])](#Adapter+context) ⇒ <code>Array.&lt;(string\|number)&gt;</code>
+    * [.contextulise(e)](#Adapter+contextulise) ⇒ <code>Object</code>
+
+<a name="new_Adapter_new"></a>
+### new Adapter(e)
+
+| Param | Type |
+| --- | --- |
+| e | <code>[Element](#Element)</code> | 
+
+<a name="Adapter+context"></a>
+### adapter.context([Element]) ⇒ <code>Array.&lt;(string\|number)&gt;</code>
+get an "absolute" selector, where
+  the context selector of the adapter "prefixed"
+
+**Kind**: instance method of <code>[Adapter](#Adapter)</code>  
+
+| Param | Type |
+| --- | --- |
+| [Element] | <code>Object</code> | 
+
+<a name="Adapter+contextulise"></a>
+### adapter.contextulise(e) ⇒ <code>Object</code>
+**Kind**: instance method of <code>[Adapter](#Adapter)</code>  
+
+| Param | Type |
+| --- | --- |
+| e | <code>[Element](#Element)</code> | 
+
 <a name="Element"></a>
 ## Element
 represents a single Element
@@ -40,21 +77,21 @@ represents a single Element
 
 * [Element](#Element)
     * [new Element([selector], [adapter], [index])](#new_Element_new)
-    * [.selector](#Element+selector) ⇒ <code>string</code>
+    * [.selector](#Element+selector) ⇒ <code>Array.&lt;(string\|number)&gt;</code>
     * [.index](#Element+index) ⇒ <code>number</code>
     * [.adapter](#Element+adapter) ⇒ <code>adapter</code>
 
 <a name="new_Element_new"></a>
 ### new Element([selector], [adapter], [index])
 
-| Param | Type | Default |
-| --- | --- | --- |
-| [selector] | <code>string</code> | <code>&quot;&#x27;&#x27;&quot;</code> | 
-| [adapter] | <code>Object</code> |  | 
-| [index] | <code>number</code> |  | 
+| Param | Type |
+| --- | --- |
+| [selector] | <code>string</code> | 
+| [adapter] | <code>Object</code> | 
+| [index] | <code>number</code> | 
 
 <a name="Element+selector"></a>
-### element.selector ⇒ <code>string</code>
+### element.selector ⇒ <code>Array.&lt;(string\|number)&gt;</code>
 **Kind**: instance property of <code>[Element](#Element)</code>  
 <a name="Element+index"></a>
 ### element.index ⇒ <code>number</code>
@@ -273,4 +310,4 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ---
-Generated: Sun 27 Dec 2015 20:23:48 GMT
+Generated: Wed 30 Dec 2015 04:29:21 GMT
