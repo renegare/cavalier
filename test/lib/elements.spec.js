@@ -34,7 +34,7 @@ test('length of matching elements', co(function * (t) {
   t.same(lengthStub.lastCall.args.length, 1)
   var e = lengthStub.lastCall.args[0]
   t.same(e.constructor, Element)
-  t.same(e.selector, 'nav li')
+  t.same(e.selector, ['nav li'])
   t.same(e.index, undefined)
 }))
 
@@ -44,7 +44,7 @@ test('nth element', co(function * (t) {
   var es = new Elements('nav li', adapter)
   var e = es.at(123)
   t.same(e.constructor, Element)
-  t.same(e.selector, 'nav li')
+  t.same(e.selector, ['nav li'])
   t.same(e.index, 123)
 }))
 
@@ -54,7 +54,7 @@ test('first element', co(function * (t) {
   var es = new Elements('nav li', adapter)
   var e = es.first
   t.same(e.constructor, Element)
-  t.same(e.selector, 'nav li')
+  t.same(e.selector, ['nav li'])
   t.same(e.index, 0)
 }))
 
@@ -64,6 +64,6 @@ test('last element', co(function * (t) {
   var es = new Elements('nav li', adapter)
   var e = es.last
   t.same(e.constructor, Element)
-  t.same(e.selector, 'nav li')
+  t.same(e.selector, ['nav li'])
   t.same(e.index, -1)
 }))

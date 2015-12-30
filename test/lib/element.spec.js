@@ -33,7 +33,7 @@ test('exposes and proxies adapter methods', co(function * (t) {
   var element = {some: 'object'}
   var adapter = new MockAdapter()
   var findStub = adapter.findStub.returns(Promise.resolve(element))
-  var contextStub = adapter.contextStub.returns('some selector')
+  var contextStub = adapter.contextStub.returns(['some', 'selector'])
 
   adapter.methodsStub.returns(['find'])
 
@@ -46,11 +46,11 @@ test('exposes and proxies adapter methods', co(function * (t) {
   t.ok(findStub.calledOnce)
   t.same(findStub.lastCall.args, [e])
 
-  t.same(e.selector, 'some selector')
+  t.same(e.selector, ['some', 'selector'])
   t.ok(contextStub.calledOnce)
   t.ok(contextStub.lastCall.args.length === 1)
   e = contextStub.lastCall.args[0]
-  t.ok(e.selector === 'button.red')
+  t.same(e.selector, ['button.red'])
   t.ok(e.index === undefined)
   t.ok(e.adapter === undefined)
 }))
@@ -79,5 +79,5 @@ test('exposes all methods (when no method param is available)', t => {
 
 test('selector when no adapter is provided', t => {
   var e = new Element('button.red')
-  t.same(e.selector, 'button.red')
+  t.same(e.selector, ['button.red'])
 })

@@ -13,7 +13,7 @@ class HomePage extends Interface {
   }
 
   get visible () {
-    return Promise.join(this.field.visible(), this.submit.visible())
+    return Promise.join(this.field.waitTillVisible(), this.submit.waitTillVisible())
       .then(function (visibles) {
         return !visibles.some(v => v !== true)
       })

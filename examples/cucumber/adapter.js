@@ -3,24 +3,56 @@
 var co = require('bluebird').coroutine
 var expect = require('chai').expect
 var faker = require('faker')
+var debug = require('debug')('cavalier:example:adapter')
 
 var WebdriverIOAdapter = require('../../lib/adapter/webdriverio')
 
 class Adapter extends WebdriverIOAdapter {
-  visible (e) {
-    return this.driver.waitForVisible(e.selector, 3000)
+  findOne (e) {
+    debug('findOne', e.selector)
+    var selector = '{' + e.selector.join('}{') + '}'
+    return this.findAll(e)
+      .then(e => {
+        if (e.length < 1) {
+          throw new Error('No element found matching your selection: ', selector)
+        }
+        return e[0]
+      })
+  }
+  waitTillVisible (e, timeout) {
+    debug('waitTillVisible', e.selector)
+    return this.findOne(e)
+      .then(e => {
+        return this.driver.waitUntil(() => {
+          return this.driver.elementIdDisplayed(e.ELEMENT)
+            .then(e => e.value)
+        }, timeout || 3000)
+      })
   }
 
-  fill (e) {
-    this.driver.setValue(e.selector, faker.lorem.sentence())
+  fill (e, value) {
+    debug('fill', e.selector)
+    return this.findOne(e)
+      .then(e => {
+        return this.driver.elementIdValue(e.ELEMENT, value || faker.lorem.sentence())
+      })
   }
 
   click (e) {
-    return this.driver.click(e.selector)
+    debug('click', e.selector)
+    return this.findOne(e)
+      .then(e => {
+        return this.driver.elementIdClick(e.ELEMENT)
+      })
   }
 
   text (e) {
-    return this.driver.getText(e.selector)
+    debug('text', e.selector)
+    return this.findOne(e)
+      .then(e => {
+        return this.driver.elementIdText(e.ELEMENT)
+          .then(r => r.value)
+      })
   }
 }
 
