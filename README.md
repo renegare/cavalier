@@ -19,7 +19,9 @@ Please see ```examples/cucumber```
 
 <dl>
 <dt><a href="#Adapter">Adapter</a></dt>
-<dd></dd>
+<dd><p>abstract object. Should be extended when used and not
+ directly used as it is missing &quot;length&quot; method</p>
+</dd>
 <dt><a href="#Element">Element</a></dt>
 <dd><p>represents a single Element</p>
 </dd>
@@ -36,6 +38,9 @@ Please see ```examples/cucumber```
 
 <a name="Adapter"></a>
 ## Adapter
+abstract object. Should be extended when used and not
+ directly used as it is missing "length" method
+
 **Kind**: global class  
 
 * [Adapter](#Adapter)
@@ -53,7 +58,7 @@ Please see ```examples/cucumber```
 <a name="Adapter+context"></a>
 ### adapter.context([Element]) ⇒ <code>Array.&lt;(string\|number)&gt;</code>
 get an "absolute" selector, where
-  the context selector of the adapter "prefixed"
+  the context of the adapter "prefixed" on to the elements selector
 
 **Kind**: instance method of <code>[Adapter](#Adapter)</code>  
 
@@ -145,6 +150,7 @@ represents a whole or sub interface of "elements :?"
 * [Interface](#Interface)
     * [new Interface(adapter)](#new_Interface_new)
     * [.adapter](#Interface+adapter) ⇒ <code>Object</code>
+    * [.root](#Interface+root) ⇒ <code>[Element](#Element)</code>
     * [.element(name, selector)](#Interface+element) ⇒ <code>[Element](#Element)</code>
     * [.elements(name, selector)](#Interface+elements) ⇒ <code>[Array.&lt;Element&gt;](#Element)</code>
     * [.section(SubInterface, name, selector)](#Interface+section) ⇒ <code>[Interface](#Interface)</code>
@@ -159,6 +165,9 @@ represents a whole or sub interface of "elements :?"
 
 <a name="Interface+adapter"></a>
 ### interface.adapter ⇒ <code>Object</code>
+**Kind**: instance property of <code>[Interface](#Interface)</code>  
+<a name="Interface+root"></a>
+### interface.root ⇒ <code>[Element](#Element)</code>
 **Kind**: instance property of <code>[Interface](#Interface)</code>  
 <a name="Interface+element"></a>
 ### interface.element(name, selector) ⇒ <code>[Element](#Element)</code>
@@ -310,4 +319,4 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ---
-Generated: Wed 30 Dec 2015 04:29:21 GMT
+Generated: Sun  3 Jan 2016 00:05:21 GMT
