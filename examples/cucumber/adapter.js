@@ -1,7 +1,5 @@
 'use strict'
 
-var co = require('bluebird').coroutine
-var expect = require('chai').expect
 var faker = require('faker')
 var debug = require('debug')('cavalier:example:adapter')
 

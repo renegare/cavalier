@@ -14,5 +14,5 @@ npm start
 Then in another terminal, run the test:
 
 ```
-npm test
+DEBUG=cavalier:* npm test
 ```

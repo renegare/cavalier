@@ -102,3 +102,18 @@ test('define a collection of sub interfaces', t => {
   t.same(p.main_menu.constructor, Interfaces)
   t.same(p.main_menu.adapter, contextedAdapter)
 })
+
+test('get root (Element)', t => {
+  var adapter = {
+    context: sinon.stub().returns(['some selector'])
+  }
+
+  var p = new Interface(adapter)
+  t.same(p.root.constructor, Element)
+  t.same(p.root.selector, ['some selector'])
+  t.ok(adapter.context.calledOnce)
+  t.ok(adapter.context.lastCall.args.length === 1)
+  var e = adapter.context.lastCall.args[0]
+  t.same(e.selector, [])
+  t.same(e.index, undefined)
+})
